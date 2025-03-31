@@ -1,0 +1,19 @@
+spring:
+  profiles:
+      active: "original"
+  banner:
+      location: "logo-app"
+  datasource:
+    url: "jdbc:h2:file:./H2Database/db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false"
+    driver-class-name: "org.h2.Driver"
+    username:
+    password:
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:data.sql
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
