@@ -1,8 +1,10 @@
 package org.books.controllers;
 
+import org.books.models.Author;
 import org.books.services.AuthorService;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
 import java.util.Scanner;
 
 @Controller
@@ -15,7 +17,11 @@ public class AuthorController implements CrudController {
 
     @Override
     public void list() {
+        List<Author> authors = authorService.getAllAuthors();
 
+        for (Author author : authors) {
+            System.out.println(author);
+        }
     }
 
     @Override

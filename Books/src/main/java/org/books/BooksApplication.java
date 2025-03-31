@@ -9,7 +9,6 @@ import org.books.enums.EntityType;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 
 import java.util.Map;
 import java.util.Scanner;
@@ -42,8 +41,7 @@ public class BooksApplication implements CommandLineRunner {
                 EntityType.PUBLISHER, publisherController
         );
 
-        boolean running = true;
-        while (running) {
+        while (true) {
             EntityType entityType = null;
             while (entityType == null) {
                 System.out.println("Choose entity:");

@@ -1,7 +1,10 @@
 package org.books.services;
 
+import org.books.models.Author;
 import org.books.repositories.AuthorRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AuthorService {
@@ -9,5 +12,9 @@ public class AuthorService {
 
     public AuthorService(AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
+    }
+
+    public List<Author> getAllAuthors() {
+        return (List<Author>) authorRepository.findAll();
     }
 }

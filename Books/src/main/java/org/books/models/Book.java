@@ -2,6 +2,7 @@ package org.books.models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,18 +17,22 @@ public class Book {
     @JoinColumn(name = "Publisher_ID", nullable = false)
     private Publisher publisher;
 
-    @OneToOne
-    @JoinColumn(name = "Author_id", nullable = false)
-    private Author author;
+    @ManyToMany(mappedBy = "books")
+    private List<Author> authors;
 
     @Column(name = "Title", nullable = false, length = 250)
     private String title;
 
-    @Column(name = "PublicationYear", nullable = false)
+    @Column(name = "PUBLICATIONYEAR", nullable = false)
     private Integer publicationYear;
 
     @Column(name = "ISBN", unique = true, nullable = false, length = 50)
     private String ISBN;
+
+    @Override
+    public String toString() {
+        return id + ". \"" + title + "\"" + " (" + publicationYear + ", " + ISBN + ")";
+    }
 
     public Integer getId() {
         return id;
@@ -35,9 +40,7 @@ public class Book {
     public Publisher getPublisher() {
         return publisher;
     }
-    public Author getAuthor() {
-        return author;
-    }
+
     public String getTitle() {
         return title;
     }

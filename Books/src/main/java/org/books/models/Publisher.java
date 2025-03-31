@@ -21,8 +21,24 @@ public class Publisher {
     @Column(name = "PhoneNumber", nullable = false)
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "Book", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "publisher", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Book> books;
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append(id).append(". ").append(name).append("\n")
+                .append("Address: ").append(address).append("\n")
+                .append("PhoneNumber: ").append(phoneNumber).append("\n")
+                .append("Books: \n");
+
+        for (Book book : books) {
+            stringBuilder.append("    ").append(book).append("\n");
+        }
+
+        return stringBuilder.toString();
+    }
 
     public Integer getId() {
         return id;

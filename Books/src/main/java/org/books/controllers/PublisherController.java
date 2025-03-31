@@ -1,8 +1,10 @@
 package org.books.controllers;
 
+import org.books.models.Publisher;
 import org.books.services.PublisherService;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
 import java.util.Scanner;
 
 @Controller
@@ -15,7 +17,11 @@ public class PublisherController implements CrudController {
 
     @Override
     public void list() {
+        List<Publisher> publishers = publisherService.getAllPublishers();
 
+        for (Publisher publisher : publishers) {
+            System.out.println(publisher);
+        }
     }
 
     @Override
