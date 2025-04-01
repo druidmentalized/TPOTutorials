@@ -37,10 +37,7 @@ public class BookController implements CrudController {
                 System.out.println("No books found.");
                 log.info("No books found in the database.");
             }
-
-            for (Book book : books) {
-                System.out.println(book);
-            }
+            books.forEach(System.out::println);
         } catch (EntityPersistenceException e) {
             System.err.println("Failed to retrieve books.");
             log.error("Error retrieving books: {}", e.getMessage(), e);

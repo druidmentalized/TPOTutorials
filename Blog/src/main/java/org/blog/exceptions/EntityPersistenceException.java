@@ -6,5 +6,6 @@ public class EntityPersistenceException extends RuntimeException {
     }
 
     public EntityPersistenceException(String message, Exception e) {
+        super(message, e);
     }
 }

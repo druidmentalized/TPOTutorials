@@ -9,7 +9,7 @@ import java.util.List;
 @Table(name = "Publisher")
 public class Publisher {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Publisher_ID")
     private Long id;
 
@@ -22,7 +22,7 @@ public class Publisher {
     @Column(name = "PhoneNumber", nullable = false)
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "publisher", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "publisher", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private final List<Book> books = new ArrayList<>();
 
     public Publisher() {}
@@ -35,24 +35,26 @@ public class Publisher {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Publisher [id=").append(id)
+                .append(", name=").append(name)
+                .append(", address=").append(address)
+                .append(", phoneNumber=").append(phoneNumber)
+                .append("]");
 
-        stringBuilder.append("Publisher [id=").append(id).
-                append(", name=").append(name).
-                append(", address=").append(address).
-                append(", phoneNumber=").append(phoneNumber).append("]\n");
-
-        for (Book book : books) {
-            stringBuilder.append("    ").append(book).append("\n");
+        if (!books.isEmpty()) {
+            sb.append("\n  Books:");
+            for (Book book : books) {
+                // Print only a brief summary of each book.
+                sb.append("\n    Book [id=").append(book.getId())
+                        .append(", title=").append(book.getTitle())
+                        .append("]");
+            }
+        } else {
+            sb.append("\n  No books.");
         }
 
-        if (books.isEmpty()) {
-            stringBuilder.append("    ").append("None. ");
-        }
-
-        stringBuilder.delete(stringBuilder.length() - 1, stringBuilder.length());
-
-        return stringBuilder.toString();
+        return sb.toString();
     }
 
     public Long getId() {

@@ -7,20 +7,36 @@ import jakarta.persistence.*;
 public class Article {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Article_ID")
     private Long id;
 
     @Column(name = "Title", nullable = false)
     private String title;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Author_ID")
     private User author;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Blog_ID")
     private Blog blog;
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", author=" + (author != null ? "User{id=" + author.getId() + ", email=" + author.getEmail() + "}" : "null") +
+                ", blog=" + (blog != null ? "Blog{id=" + blog.getId() + ", name=" + blog.getName() + "}" : "null") +
+                '}';
+    }
+
+    @PreRemove
+    private void preRemove() {
+        author.getArticles().remove(this);
+        blog.getArticles().remove(this);
+    }
 
     public Long getId() {
         return id;

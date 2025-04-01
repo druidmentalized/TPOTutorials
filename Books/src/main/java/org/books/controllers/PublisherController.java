@@ -37,10 +37,7 @@ public class PublisherController implements CrudController {
                 System.out.println("No publishers found.");
                 log.info("No publishers found in the database.");
             }
-
-            for (Publisher publisher : publishers) {
-                System.out.println(publisher);
-            }
+            publishers.forEach(System.out::println);
         } catch (EntityPersistenceException e) {
             System.err.println("Failed to retrieve publishers.");
             log.error("Error retrieving books: {}", e.getMessage(), e);

@@ -35,11 +35,7 @@ public class AuthorController implements CrudController {
                 log.info("No authors found in the database.");
                 return;
             }
-
-            for (Author author : authors) {
-                System.out.println(author);
-            }
-
+            authors.forEach(System.out::println);
         } catch (EntityPersistenceException e) {
             System.err.println("Failed to retrieve authors.");
             log.error("Error retrieving authors: {}", e.getMessage(), e);

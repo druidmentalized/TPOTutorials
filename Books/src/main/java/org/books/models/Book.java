@@ -9,15 +9,15 @@ import java.util.List;
 @Table(name = "Book")
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Book_ID")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Publisher_ID", nullable = false)
     private Publisher publisher;
 
-    @ManyToMany(mappedBy = "books")
+    @ManyToMany(mappedBy = "books", fetch = FetchType.EAGER)
     private final List<Author> authors = new ArrayList<>();
 
     @Column(name = "Title", nullable = false, length = 250)
@@ -39,7 +39,32 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book [id=" + id + ", title=\"" + title + "\", publicationYear=" + publicationYear + ", ISBN=" + ISBN + "]";
+        StringBuilder sb = new StringBuilder();
+        sb.append("Book [id=").append(id)
+                .append(", title=\"").append(title)
+                .append("\", publicationYear=").append(publicationYear)
+                .append(", ISBN=").append(ISBN)
+                .append("]");
+
+        if (publisher != null) {
+            sb.append(", Publisher [id=").append(publisher.getId())
+                    .append(", name=").append(publisher.getName())
+                    .append("]");
+        }
+
+        if (!authors.isEmpty()) {
+            sb.append(", Authors:");
+            for (Author author : authors) {
+                // Only print the author id and name to avoid recursion.
+                sb.append(" [id=").append(author.getId())
+                        .append(", name=").append(author.getName())
+                        .append(" ").append(author.getSurname()).append("]");
+            }
+        } else {
+            sb.append(", No authors.");
+        }
+
+        return sb.toString();
     }
 
     public Long getId() {

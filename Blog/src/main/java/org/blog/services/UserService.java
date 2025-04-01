@@ -26,7 +26,7 @@ public class UserService implements CrudService<User, Long> {
     }
 
     @Override
-    public User getById(Long id) throws EntityNotFoundException {
+    public User getById(Long id){
         return userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User with ID " + id + " not found."));
     }
@@ -47,7 +47,7 @@ public class UserService implements CrudService<User, Long> {
     }
 
     @Override
-    public void save(User user) throws InvalidEntityException, DuplicateEntityException, EntityPersistenceException {
+    public void save(User user) {
         if (user.getEmail() == null || user.getEmail().isBlank()) {
             throw new InvalidEntityException("User email cannot be empty.");
         }
@@ -65,7 +65,7 @@ public class UserService implements CrudService<User, Long> {
     }
 
     @Override
-    public void update(User user) throws InvalidEntityException, DuplicateEntityException, EntityPersistenceException, EntityNotFoundException {
+    public void update(User user) {
         if (user.getEmail() == null || user.getEmail().isBlank()) {
             throw new InvalidEntityException("User email cannot be empty.");
         }
@@ -87,7 +87,7 @@ public class UserService implements CrudService<User, Long> {
     }
 
     @Override
-    public void delete(User user) throws EntityPersistenceException {
+    public void delete(User user) {
         try {
             userRepository.delete(user);
             if (userRepository.existsById(user.getId())) {

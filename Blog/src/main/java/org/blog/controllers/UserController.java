@@ -40,9 +40,7 @@ public class UserController implements CrudController {
                 log.info("No users found in the database.");
                 return;
             }
-            for (User user : users) {
-                System.out.println(user);
-            }
+            users.forEach(System.out::println);
         } catch (EntityPersistenceException e) {
             System.err.println("Failed to retrieve users.");
             log.error("Error retrieving users: {}", e.getMessage(), e);
@@ -116,31 +114,28 @@ public class UserController implements CrudController {
             return;
         }
 
-        // Change email
         System.out.println("Enter new email (leave blank to keep current):");
         String newEmail = scanner.nextLine();
         if (!newEmail.isBlank()) {
             user.setEmail(newEmail);
         }
 
-        // Change managed blog
         System.out.println("Change managed blog? (y/n)");
         String answer = scanner.nextLine();
         if (answer.equalsIgnoreCase("y")) {
             System.out.println("Enter blog ID or name:");
-            String blogInput = scanner.nextLine();
+            input = scanner.nextLine();
             try {
-                Blog newBlog = blogService.getByIdOrName(blogInput);
+                Blog newBlog = blogService.getByIdOrName(input);
                 user.setManagedBlog(newBlog);
                 System.out.println("Managed blog changed successfully.");
                 log.info("User '{}' now manages blog '{}'", user.getId(), newBlog.getName());
             } catch (EntityNotFoundException e) {
                 System.err.println("Blog not found. Keeping the old blog.");
-                log.warn("Blog lookup failed for input '{}'", blogInput);
+                log.warn("Blog lookup failed for input '{}'", input);
             }
         }
 
-        // Change roles
         System.out.println("Change roles for this user? (y/n)");
         answer = scanner.nextLine();
         while (answer.equalsIgnoreCase("y")) {

@@ -10,19 +10,54 @@ import java.util.Set;
 public class Blog {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "Article_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Blog_ID")
     private Long id;
 
     @Column(name = "Name", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "blog", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "blog", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private final Set<Article> articles = new HashSet<>();
 
     @OneToOne
     @JoinColumn(name = "Manager_ID")
     private User manager;
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Blog {")
+                .append("id=").append(id)
+                .append(", name='").append(name).append('\'');
+
+        if (manager != null) {
+            builder.append(", managerEmail='").append(manager.getEmail()).append('\'');
+        } else {
+            builder.append(", managerEmail=null");
+        }
+
+        if (!articles.isEmpty()) {
+            builder.append(", articles=[");
+            articles.forEach(article -> builder.append(article.getTitle()).append(", "));
+            builder.setLength(builder.length() - 2); // remove last comma and space
+            builder.append("]");
+        } else {
+            builder.append(", articles=[]");
+        }
+
+        builder.append("}");
+        return builder.toString();
+    }
+
+    @PreRemove
+    private void preRemove() {
+        manager.setManagedBlog(null);
+    }
+
+    public Long getId() {
+        return id;
+    }
 
     public String getName() {
         return name;

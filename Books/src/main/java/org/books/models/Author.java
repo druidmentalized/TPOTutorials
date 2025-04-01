@@ -9,7 +9,7 @@ import java.util.List;
 @Table(name = "Author")
 public class Author {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Author_ID")
     private Long id;
 
@@ -36,24 +36,25 @@ public class Author {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Author [id=").append(id)
+                .append(", name=").append(name)
+                .append(", surname=").append(surname)
+                .append("]");
 
-        stringBuilder.append("Author [id=").append(id).
-                append(", name=").append(name).
-                append(", surname=").append(surname).append("]\n");
-
-        //showing all books made by author
-        for (Book book : books) {
-            stringBuilder.append("    ").append(book).append("\n");
+        if (!books.isEmpty()) {
+            sb.append("\n  Books:");
+            for (Book book : books) {
+                // Print a summary for each book.
+                sb.append("\n    Book [id=").append(book.getId())
+                        .append(", title=").append(book.getTitle())
+                        .append("]");
+            }
+        } else {
+            sb.append("\n  No books.");
         }
 
-        if (books.isEmpty()) {
-            stringBuilder.append("    ").append("None. ");
-        }
-
-        stringBuilder.delete(stringBuilder.length() - 1, stringBuilder.length());
-
-        return stringBuilder.toString();
+        return sb.toString();
     }
 
     public Long getId() {
