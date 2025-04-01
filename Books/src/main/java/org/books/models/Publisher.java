@@ -2,6 +2,7 @@ package org.books.models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -10,7 +11,7 @@ public class Publisher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Publisher_ID")
-    private Integer id;
+    private Long id;
 
     @Column(name = "Name", nullable = false)
     private String name;
@@ -22,25 +23,31 @@ public class Publisher {
     private String phoneNumber;
 
     @OneToMany(mappedBy = "publisher", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Book> books;
+    private final List<Book> books = new ArrayList<>();
 
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
 
-        stringBuilder.append(id).append(". ").append(name).append("\n")
-                .append("Address: ").append(address).append("\n")
-                .append("PhoneNumber: ").append(phoneNumber).append("\n")
-                .append("Books: \n");
+        stringBuilder.append("Publisher [id=").append(id).
+                append(", name=").append(name).
+                append(", address=").append(address).
+                append(", phoneNumber=").append(phoneNumber).append("]\n");
 
         for (Book book : books) {
             stringBuilder.append("    ").append(book).append("\n");
         }
 
+        if (books.isEmpty()) {
+            stringBuilder.append("    ").append("None. ");
+        }
+
+        stringBuilder.delete(stringBuilder.length() - 1, stringBuilder.length());
+
         return stringBuilder.toString();
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
     public String getName() {

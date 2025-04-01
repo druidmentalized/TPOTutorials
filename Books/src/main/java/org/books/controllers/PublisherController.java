@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 @Controller
 public class PublisherController implements CrudController {
-    private PublisherService publisherService;
+    private final PublisherService publisherService;
 
     public PublisherController(PublisherService publisherService) {
         this.publisherService = publisherService;
