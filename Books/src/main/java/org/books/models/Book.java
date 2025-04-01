@@ -23,7 +23,7 @@ public class Book {
     @Column(name = "Title", nullable = false, length = 250)
     private String title;
 
-    @Column(name = "PUBLICATIONYEAR", nullable = false)
+    @Column(name = "PublicationYear", nullable = false)
     private Integer publicationYear;
 
     @Column(name = "ISBN", unique = true, nullable = false, length = 50)
@@ -46,9 +46,6 @@ public class Book {
         return id;
     }
 
-    public Publisher getPublisher() {
-        return publisher;
-    }
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
     }

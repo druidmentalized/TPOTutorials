@@ -72,9 +72,9 @@ public class BookService {
 
         Optional<Book> existingBook = bookRepository
                 .findByTitleIgnoreCaseAndISBNIgnoreCase(book.getTitle(), book.getISBN());
-        if (existingBook.isPresent()) {
-            throw new DuplicateEntityException("Another book already exists with this parameters: " +
-                    book.getTitle() + ", ISBN=" + book.getISBN());
+
+        if (existingBook.isPresent() && !existingBook.get().getId().equals(book.getId())) {
+            throw new DuplicateEntityException("Another book already exists with this title and ISBN.");
         }
 
         try {

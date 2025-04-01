@@ -14,4 +14,6 @@ public interface PublisherRepository extends CrudRepository<Publisher, Long> {
     List<Publisher> findAllWithBooks();
 
     Optional<Publisher> findFirstByNameIgnoreCase(String name);
+
+    Optional<Publisher> findByNameIgnoreCaseAndAddressIgnoreCaseOrPhoneNumber(String name, String address, String phoneNumber);
 }

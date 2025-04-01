@@ -22,8 +22,16 @@ public class Publisher {
     @Column(name = "PhoneNumber", nullable = false)
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "publisher", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "publisher", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private final List<Book> books = new ArrayList<>();
+
+    public Publisher() {}
+
+    public Publisher(String name, String address, String phoneNumber) {
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+    }
 
     @Override
     public String toString() {
@@ -70,5 +78,9 @@ public class Publisher {
     }
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public List<Book> getBooks() {
+        return books;
     }
 }

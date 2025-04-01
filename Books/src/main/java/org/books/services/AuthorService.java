@@ -68,6 +68,7 @@ public class AuthorService {
 
         Optional<Author> existingAuthor = authorRepository
                 .findFirstByNameIgnoreCaseOrSurnameIgnoreCase(author.getName(), author.getSurname());
+
         if (existingAuthor.isPresent() && !existingAuthor.get().getId().equals(author.getId())) {
             throw new DuplicateEntityException("Another author already exists with name: "
                     + author.getName() + " " + author.getSurname());

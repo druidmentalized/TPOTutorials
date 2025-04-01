@@ -106,7 +106,7 @@ public class AuthorController implements CrudController {
             } catch (EntityNotFoundException e) {
                 System.err.println("Book not found.");
                 log.warn("Book lookup failed with input '{}'", input);
-                continue;
+                break;
             }
 
             if (author.getBooks().contains(book)) {

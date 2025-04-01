@@ -83,7 +83,7 @@ public class BookController implements CrudController {
         try {
             bookService.save(book);
             System.out.println("Book added successfully.");
-            log.info("Book added: {}", book);
+            log.info("Book added: {}", book.getTitle());
         } catch (InvalidEntityException | DuplicateEntityException e) {
             System.err.println("Could not add book: " + e.getMessage());
             log.warn("Validation error while adding book: {}", e.getMessage());
@@ -109,13 +109,13 @@ public class BookController implements CrudController {
 
         System.out.println("Enter book new title (leave blank to keep current):");
         String newTitle = scanner.nextLine();
-        if (!newTitle.isEmpty()) {
+        if (!newTitle.isBlank()) {
             book.setTitle(newTitle);
         }
 
         System.out.println("Enter book new ISBN as <number>, (leave blank to keep current):");
         String newISBN = scanner.nextLine();
-        if (!newISBN.isEmpty()) {
+        if (!newISBN.isBlank()) {
             book.setISBN("ISBN-" + newISBN);
         }
 
@@ -123,7 +123,7 @@ public class BookController implements CrudController {
         int publicationYear;
         try {
             String yearStr = scanner.nextLine();
-            if (!yearStr.isEmpty()) {
+            if (!yearStr.isBlank()) {
                 publicationYear = Integer.parseInt(yearStr);
                 book.setPublicationYear(publicationYear);
             }

@@ -151,23 +151,13 @@ INSERT INTO Book (Publisher_ID, Title, PublicationYear, ISBN) VALUES
 INSERT INTO Book (Publisher_ID, Title, PublicationYear, ISBN) VALUES
     (17, 'Silent Storms', 2013, 'ISBN-1025');
 
--- For book_id 1 (City of Twilight), let's say authors 3 and 10 wrote it
 INSERT INTO Book_Author (Book_ID, Author_ID) VALUES (1, 3);
 INSERT INTO Book_Author (Book_ID, Author_ID) VALUES (1, 10);
-
--- For book_id 2 (Moonlit Stories), authors 5, 12
 INSERT INTO Book_Author (Book_ID, Author_ID) VALUES (2, 5);
 INSERT INTO Book_Author (Book_ID, Author_ID) VALUES (2, 12);
-
--- For book_id 3 (Dragons of Elm Street), authors 15, 16
 INSERT INTO Book_Author (Book_ID, Author_ID) VALUES (3, 15);
 INSERT INTO Book_Author (Book_ID, Author_ID) VALUES (3, 16);
-
--- For book_id 4 (Ocean of Secrets), just author 1
 INSERT INTO Book_Author (Book_ID, Author_ID) VALUES (4, 1);
-
--- And so on...
--- (Feel free to create at least 20 or 30 bridging entries to show variety)
 INSERT INTO Book_Author (Book_ID, Author_ID) VALUES (5, 20);
 INSERT INTO Book_Author (Book_ID, Author_ID) VALUES (6, 2);
 INSERT INTO Book_Author (Book_ID, Author_ID) VALUES (7, 11);
