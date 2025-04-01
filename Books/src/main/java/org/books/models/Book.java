@@ -17,7 +17,7 @@ public class Book {
     @JoinColumn(name = "Publisher_ID", nullable = false)
     private Publisher publisher;
 
-    @ManyToMany(mappedBy = "books", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "books")
     private final List<Author> authors = new ArrayList<>();
 
     @Column(name = "Title", nullable = false, length = 250)
