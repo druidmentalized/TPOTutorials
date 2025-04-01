@@ -1,11 +1,11 @@
-package org.blog.contollers;
+package org.blog.controllers;
 
 import org.springframework.stereotype.Controller;
 
 import java.util.Scanner;
 
 @Controller
-public class RoleController implements CrudController {
+public class ArticleController implements CrudController {
     @Override
     public void list() {
 

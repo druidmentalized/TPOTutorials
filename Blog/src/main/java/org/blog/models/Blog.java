@@ -10,7 +10,7 @@ import java.util.Set;
 public class Blog {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Article_ID")
     private Long id;
 
@@ -23,4 +23,22 @@ public class Blog {
     @OneToOne
     @JoinColumn(name = "Manager_ID")
     private User manager;
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<Article> getArticles() {
+        return articles;
+    }
+
+    public User getManager() {
+        return manager;
+    }
+    public void setManager(User manager) {
+        this.manager = manager;
+    }
 }

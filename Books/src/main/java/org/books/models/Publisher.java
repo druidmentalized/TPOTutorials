@@ -9,7 +9,7 @@ import java.util.List;
 @Table(name = "Publisher")
 public class Publisher {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Publisher_ID")
     private Long id;
 

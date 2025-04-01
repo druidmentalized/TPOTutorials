@@ -9,17 +9,40 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AuthorService {
+public class AuthorService implements CrudService<Author, Long> {
     private final AuthorRepository authorRepository;
 
     public AuthorService(AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
     }
 
-    public List<Author> getAllAuthors() {
+    @Override
+    public List<Author> getAll() {
         return (List<Author>) authorRepository.findAll();
     }
 
+    @Override
+    public Author getById(Long id) throws EntityNotFoundException {
+        return authorRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException("Author with id " + id + " not found."));
+    }
+
+    public Author getFromInput(String input) {
+        try {
+            Long id = Long.parseLong(input);
+            Optional<Author> authorById = authorRepository.findById(id);
+            if (authorById.isPresent()) return authorById.get();
+        } catch (NumberFormatException ignored) {
+            // Not an ID, continue
+        }
+
+        Optional<Author> authorByNameOrSurname = authorRepository
+                .findFirstByNameIgnoreCaseOrSurnameIgnoreCase(input, input);
+        return authorByNameOrSurname.orElseThrow(() ->
+                new EntityNotFoundException("No author found for input: " + input));
+    }
+
+    @Override
     public void save(Author author) {
         if (author.getName() == null || author.getName().isBlank() ||
                 author.getSurname() == null || author.getSurname().isBlank()) {
@@ -40,22 +63,7 @@ public class AuthorService {
         }
     }
 
-
-    public Author getFromInput(String input) {
-        try {
-            Long id = Long.parseLong(input);
-            Optional<Author> authorById = authorRepository.findById(id);
-            if (authorById.isPresent()) return authorById.get();
-        } catch (NumberFormatException ignored) {
-            // Not an ID, continue
-        }
-
-        Optional<Author> authorByNameOrSurname = authorRepository
-                .findFirstByNameIgnoreCaseOrSurnameIgnoreCase(input, input);
-        return authorByNameOrSurname.orElseThrow(() ->
-                new EntityNotFoundException("No author found for input: " + input));
-    }
-
+    @Override
     public void update(Author author) {
         if (author.getName() == null || author.getName().isBlank() ||
                 author.getSurname() == null || author.getSurname().isBlank()) {
@@ -81,7 +89,7 @@ public class AuthorService {
         }
     }
 
-
+    @Override
     public void delete(Author author) {
         if (!author.getBooks().isEmpty()) {
             throw new EntityDeletionNotAllowedException("Author has books assigned and cannot be deleted.");

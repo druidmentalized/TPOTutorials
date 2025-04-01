@@ -28,7 +28,7 @@ public class AuthorController implements CrudController {
     @Override
     public void list() {
         try {
-            List<Author> authors = authorService.getAllAuthors();
+            List<Author> authors = authorService.getAll();
 
             if (authors.isEmpty()) {
                 System.out.println("No authors found.");

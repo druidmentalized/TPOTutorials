@@ -12,14 +12,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class BookService {
+public class BookService implements CrudService<Book, Long> {
     private final BookRepository bookRepository;
 
     public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
-    public List<Book> getAllBooks() {
+    @Override
+    public List<Book> getAll() {
         return (List<Book>) bookRepository.findAll();
     }
 
@@ -38,6 +39,13 @@ public class BookService {
         return bookByTitleOrISBN.orElseThrow(() -> new EntityNotFoundException("No book found for input: " + input));
     }
 
+    @Override
+    public Book getById(Long id) throws EntityNotFoundException {
+        return bookRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException("Book with id " + id + " not found."));
+    }
+
+    @Override
     public void save(Book book) {
         if (book.getTitle() == null || book.getTitle().isEmpty() ||
         book.getISBN() == null || book.getISBN().isEmpty() ||
@@ -59,6 +67,7 @@ public class BookService {
         }
     }
 
+    @Override
     public void update(Book book) {
         if (book.getTitle() == null || book.getTitle().isEmpty() ||
                 book.getISBN() == null || book.getISBN().isEmpty() ||
@@ -84,6 +93,7 @@ public class BookService {
         }
     }
 
+    @Override
     public void delete(Book book) {
         try {
             bookRepository.delete(book);

@@ -31,7 +31,7 @@ public class PublisherController implements CrudController {
     @Override
     public void list() {
         try {
-            List<Publisher> publishers = publisherService.getAllPublishers();
+            List<Publisher> publishers = publisherService.getAll();
 
             if (publishers.isEmpty()) {
                 System.out.println("No publishers found.");

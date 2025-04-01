@@ -2,6 +2,7 @@ package org.blog.models;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -9,7 +10,7 @@ import java.util.Set;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "User_ID")
     private Long id;
 
@@ -17,7 +18,7 @@ public class User {
     private String email;
 
     @OneToMany(mappedBy = "author", fetch = FetchType.EAGER)
-    private Set<Article> articles;
+    private final Set<Article> articles = new HashSet<>();
 
     @OneToOne(mappedBy = "manager")
     private Blog managedBlog;
@@ -28,7 +29,7 @@ public class User {
             joinColumns = @JoinColumn(name = "User_ID"),
             inverseJoinColumns = @JoinColumn(name = "Role_ID")
     )
-    private Set<Role> roles;
+    private final Set<Role> roles = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -39,5 +40,20 @@ public class User {
     }
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Blog getManagedBlog() {
+        return managedBlog;
+    }
+    public void setManagedBlog(Blog managedBlog) {
+        this.managedBlog = managedBlog;
+    }
+
+    public Set<Article> getArticles() {
+        return articles;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
     }
 }

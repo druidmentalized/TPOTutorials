@@ -1,4 +1,4 @@
-package org.blog.contollers;
+package org.blog.controllers;
 
 import java.util.Scanner;
 

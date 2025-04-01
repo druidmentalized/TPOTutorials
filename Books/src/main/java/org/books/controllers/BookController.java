@@ -31,7 +31,7 @@ public class BookController implements CrudController {
     @Override
     public void list() {
         try {
-            List<Book> books = bookService.getAllBooks();
+            List<Book> books = bookService.getAll();
 
             if (books.isEmpty()) {
                 System.out.println("No books found.");

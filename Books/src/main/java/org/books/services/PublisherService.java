@@ -12,15 +12,22 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PublisherService {
+public class PublisherService implements CrudService<Publisher, Long> {
     private final PublisherRepository publisherRepository;
 
     public PublisherService(PublisherRepository publisherRepository) {
         this.publisherRepository = publisherRepository;
     }
 
-    public List<Publisher> getAllPublishers() {
+    @Override
+    public List<Publisher> getAll() {
         return publisherRepository.findAllWithBooks();
+    }
+
+    @Override
+    public Publisher getById(Long id) throws EntityNotFoundException {
+        return publisherRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException("Publisher with id " + id + " not found."));
     }
 
     public Publisher getByIdOrName(String input) {
@@ -38,6 +45,7 @@ public class PublisherService {
                 new EntityNotFoundException("No publisher found for input: " + input));
     }
 
+    @Override
     public void save(Publisher publisher) {
         if (publisher.getName() == null || publisher.getName().isEmpty() ||
         publisher.getAddress() == null || publisher.getAddress().isEmpty() ||
@@ -59,6 +67,7 @@ public class PublisherService {
         }
     }
 
+    @Override
     public void update(Publisher publisher) {
         if (publisher.getName() == null || publisher.getName().isEmpty() ||
                 publisher.getAddress() == null || publisher.getAddress().isEmpty() ||
@@ -86,6 +95,7 @@ public class PublisherService {
         }
     }
 
+    @Override
     public void delete(Publisher publisher) {
         try {
             publisherRepository.delete(publisher);

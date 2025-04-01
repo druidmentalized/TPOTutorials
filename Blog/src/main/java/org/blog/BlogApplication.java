@@ -1,6 +1,6 @@
 package org.blog;
 
-import org.blog.contollers.*;
+import org.blog.controllers.*;
 import org.blog.enums.ActionType;
 import org.blog.enums.EntityType;
 import org.springframework.boot.CommandLineRunner;
