@@ -1,2 +1,2 @@
 rootProject.name = "TPOTutorials"
-include("Books")
+include("Books", "Blog")
