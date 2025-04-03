@@ -8,8 +8,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/Blog" />
-            <option value="$PROJECT_DIR$/Books" />
+            <option value="$PROJECT_DIR$/tpo04-blog" />
+            <option value="$PROJECT_DIR$/tpo04-books" />
+            <option value="$PROJECT_DIR$/tpo05" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -1,2 +1,2 @@
 rootProject.name = "TPOTutorials"
-include("Books", "Blog")
+include("tpo04-books", "tpo04-blog", "tpo05")
