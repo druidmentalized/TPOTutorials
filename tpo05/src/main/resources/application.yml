@@ -1,3 +1,7 @@
 spring:
   application:
     name: tpo05
+
+fallback:
+  defaultTimezone: Europe/Warsaw
+  defaultFormat: hh:mm:ss.SSSS yyyy/MM/dd
