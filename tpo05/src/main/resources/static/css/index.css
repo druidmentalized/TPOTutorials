@@ -21,14 +21,8 @@
 
 /* Unified button styling (not using .color1–.color5) */
 .main-button {
-    padding: 1rem 2rem;
     font-size: 1.2rem;
-    background-color: #4fc3f7; /* Soft matching blue */
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease;
+    background-color: #4fc3f7;
 }
 
 .main-button:hover {

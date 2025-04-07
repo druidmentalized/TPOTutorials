@@ -9,17 +9,17 @@
 <body>
 <div class="chooser-container">
     <div class="chooser-title">What would you like to view?</div>
-    <a class="chooser-button" href="/current-time?timezone=Europe/Warsaw&format=hh:mm:ss.SSSS yyyy/MM/dd">
+    <a class="base-button chooser-button" href="/current-time?timezone=Europe/Warsaw&format=hh:mm:ss.SSSS yyyy/MM/dd">
         View Time (Customizable)
     </a>
-    <a class="chooser-button" href="/current-year">
+    <a class="base-button chooser-button" href="/current-year">
         View Current Year
     </a>
 </div>
 
 <div class="background-container" id="background-container"></div>
 
-<button class="back-button" onclick="window.location.href='/index.html'">Main Menu</button>
+<a class="base-button back-button" href="/index.html">Main Menu</a>
 
 <script src="/js/triangles-background.js"></script>
 </body>

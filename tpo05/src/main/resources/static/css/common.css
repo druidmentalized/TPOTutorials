@@ -215,16 +215,40 @@ html, body {
 }
 
 /* --- Buttons & UI --- */
+.base-button {
+    display: inline-block;
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.8rem;
+    padding: 1rem 2rem;
+    margin: 1rem;
+    color: white;
+    background: dimgray;
+    text-decoration: none;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Optional hover effect */
+.base-button:hover {
+    background-color: gray;
+}
+
+/* Positioning only for back button */
 .back-button {
     position: absolute;
     bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
-    padding: 12px 24px;
-    font-size: 0.8rem;
-    border: 2px solid;
-    border-radius: 6px;
-    cursor: pointer;
-    z-index: 10;
-    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.chooser-title {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.chooser-button {
+    /* Can be empty if all style is in .base-button */
 }

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Base Converter</title>
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/conversion.css">
+</head>
+<body>
+
+<div class="conversion-wrapper">
+    <h1 class="title">Base Converter</h1>
+
+    <form action="/convert" method="post" class="conversion-form">
+        <label>
+            Value:
+            <input type="text" name="value" required>
+        </label>
+        <label>
+            From Base:
+            <input type="number" name="fromBase" min="2" max="100" required>
+        </label>
+        <label>
+            To Base:
+            <input type="number" name="toBase" min="2" max="100" required>
+        </label>
+
+        <button type="submit" class="base-button convert-button">Convert</button>
+    </form>
+
+    <div class="conversion-result" id="result">
+        <!-- Result will appear here -->
+    </div>
+</div>
+
+<a href="/index.html" class="base-button back-button">Main Menu</a>
+
+<div id="background-container" class="background-container"></div>
+<script src="/js/bubbles-background.js"></script>
+</body>
+</html>
