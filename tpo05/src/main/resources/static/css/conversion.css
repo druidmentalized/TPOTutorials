@@ -43,12 +43,12 @@
     box-sizing: border-box;
 }
 
-.convert-button, .back-button {
+.convert-button, .back-button, .conversion-button {
     background-color: #ffa726;
     color: white;
 }
 
-.convert-button:hover, .back-button:hover {
+.convert-button:hover, .back-button:hover, .conversion-button:hover {
     background-color: #fb8c00;
 }
 

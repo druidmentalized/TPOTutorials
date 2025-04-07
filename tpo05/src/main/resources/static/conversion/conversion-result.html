@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Conversion Result</title>
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/conversion.css">
+</head>
+<body>
+<div class="conversion-wrapper">
+    <h1 class="title">Conversion Result</h1>
+
+    <div class="conversion-result">
+
+        <p><strong>Original:</strong> {{ORIGINAL}} (base {{FROM_BASE}})</p>
+        <p><strong>Converted:</strong> {{CONVERTED}} (base {{TO_BASE}})</p>
+        <hr/>
+        <p><strong>BINARY:</strong> {{BIN}}</p>
+        <p><strong>OCTAL:</strong> {{OCT}}</p>
+        <p><strong>DECIMAL:</strong> {{DEC}}</p>
+        <p><strong>HEXADECIMAL:</strong> {{HEX}}</p>
+    </div>
+    <div>
+        {{ERROR_BLOCK}}
+    </div>
+
+</div>
+
+<a href="/conversion/conversion.html" class="base-button conversion-button">Convert Again</a>
+<a href="/index.html" class="base-button back-button">Main Menu</a>
+
+<div id="background-container" class="background-container"></div>
+<script src="/js/bubbles-background.js"></script>
+</body>
+</html>

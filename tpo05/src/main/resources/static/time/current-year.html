@@ -19,15 +19,16 @@
 
 <script>
     fetch('/api/current-year')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Failed to fetch year");
+        .then(response => response.json())
+        .then(data => {
+            const yearElement = document.getElementById("year-display");
+
+            if (data.year) {
+                yearElement.textContent = "Year: " + data.year
             }
-            return response.text();
-        })
-        .then(year => {
-            console.log("Current Year:", year);
-            document.getElementById("year-display").textContent = "Year: " + year;
+            else {
+                yearElement.textContent = "Undefined"
+            }
         })
         .catch(error => {
             console.error("Error fetching year:", error);

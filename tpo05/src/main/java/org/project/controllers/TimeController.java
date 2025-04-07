@@ -4,14 +4,19 @@ import org.project.config.FallbackProperties;
 import org.project.exceptions.InvalidFormatException;
 import org.project.exceptions.InvalidTimezoneException;
 import org.project.services.TimeService;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -27,23 +32,11 @@ public class TimeController {
     }
 
     @GetMapping("/current-time")
-    public String redirectToStaticCurrentTime(
-            @RequestParam(value = "timezone", required = false) String timezone,
-            @RequestParam(value = "format", required = false) String format) {
-
-        List<String> params = new ArrayList<>();
-
-        if (timezone != null) {
-            params.add("timezone=" + timezone);
-        }
-
-        if (format != null) {
-            params.add("format=" + format);
-        }
-
-        String paramString = String.join("&", params);
-
-        return "redirect:time/current-time.html" + (paramString.isEmpty() ? "" : "?" + paramString);
+    public ResponseEntity<Resource> redirectToStaticCurrentTime() {
+        ClassPathResource htmlFile = new ClassPathResource("static/time/current-time.html");
+        return ResponseEntity.ok()
+                .contentType(MediaType.TEXT_HTML)
+                .body(htmlFile);
     }
 
     @GetMapping("/api/current-time")
@@ -82,13 +75,18 @@ public class TimeController {
     }
 
     @GetMapping("/current-year")
-    public String redirectToStaticCurrentYear() {
-        return "redirect:time/current-year.html";
+    public ResponseEntity<Resource> redirectToStaticCurrentYear() {
+        ClassPathResource htmlFile = new ClassPathResource("static/time/current-year.html");
+        return ResponseEntity.ok()
+                .contentType(MediaType.TEXT_HTML)
+                .body(htmlFile);
     }
 
     @GetMapping("/api/current-year")
     @ResponseBody
-    public String getCurrentYear() {
-        return timeService.getCurrentYear();
+    public Map<String, String> getCurrentYear() {
+        Map<String, String> response = new HashMap<>();
+        response.put("year", timeService.getCurrentYear());
+        return response;
     }
 }
