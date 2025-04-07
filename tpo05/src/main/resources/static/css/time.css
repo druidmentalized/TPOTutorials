@@ -44,13 +44,14 @@ body {
     opacity: 1;
 }
 
-.triangle-container {
-    position: absolute;
+#background-container {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
     pointer-events: none;
+    z-index: 0;
     overflow: hidden;
 }
 
@@ -167,3 +168,113 @@ body {
 .green5 {
     border-bottom-color: rgba(144, 238, 144, 0.8);
 }
+
+.chooser-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 10;
+}
+
+.chooser-title {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.chooser-button {
+    display: inline-block;
+    background-color: #00cc00;
+    color: white;
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.8rem;
+    padding: 1rem 2rem;
+    margin: 1rem;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.chooser-button:hover {
+    background-color: #009900;
+}
+
+.back-button {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 24px;
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.8rem;
+    background-color: #66ff66; /* Light green */
+    color: #ffffff; /* White text */
+    border: 2px solid #66ff66;
+    border-radius: 6px;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #55dd55;
+    border-color: #55dd55;
+}
+
+/* Pipe wrapper for placement and orientation */
+.pipe-wrapper {
+    position: absolute;
+}
+
+/* Base pipe styles */
+.pipe {
+    opacity: 0.8;
+    position: absolute;
+    animation-duration: 10s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+    filter: blur(0.5px);
+    box-shadow: 0 0 12px rgba(0, 191, 255, 0.5);
+}
+
+/* Horizontal pipes */
+.to-left,
+.to-right {
+    width: 180px;  /* wider pipe */
+    height: 12px;
+}
+
+/* Vertical pipes */
+.to-top,
+.to-bottom {
+    width: 12px;
+    height: 180px;
+}
+
+/* Animations */
+@keyframes move-right {
+    0% { transform: translateX(0); opacity: 1; }
+    100% { transform: translateX(120vw); opacity: 0; }
+}
+
+@keyframes move-left {
+    0% { transform: translateX(0); opacity: 1; }
+    100% { transform: translateX(-120vw); opacity: 0; }
+}
+
+@keyframes move-up {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-120vh); opacity: 0; }
+}
+
+@keyframes move-down {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(120vh); opacity: 0; }
+}
+
+/* Assign animations to directions */
+.to-right { animation-name: move-right; }
+.to-left { animation-name: move-left; }
+.to-top { animation-name: move-up; }
+.to-bottom { animation-name: move-down; }
