@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Current year</title>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<div class="year-display" id="year-display">Loading from server...</div>
+
+<div id="error-msg" class="error-message"></div>
+
+<div class="triangle-container" id="triangle-container"></div>
+
+<script>
+    const container = document.getElementById("triangle-container");
+
+    const edges = ["from-top", "from-bottom", "from-left", "from-right"];
+    const sizes = ["small", "medium", "large"];
+    const colors = ["green1", "green2", "green3", "green4", "green5"];
+
+    function spawnTriangle() {
+        const outer = document.createElement("div");
+        outer.classList.add("triangle-outer");
+
+        const randomEdge = edges[Math.floor(Math.random() * edges.length)];
+        outer.classList.add(randomEdge);
+
+        if (randomEdge === "from-top" || randomEdge === "from-bottom") {
+            const leftPercent = Math.random() * 100;
+            outer.style.left = `calc(${leftPercent}% - 30px)`;
+        } else {
+            const topPercent = Math.random() * 100;
+            outer.style.top = `calc(${topPercent}% - 30px)`;
+        }
+
+        const rotation = Math.floor(Math.random() * 360);
+        outer.style.transform = `rotate(${rotation}deg)`;
+
+        const triangle = document.createElement("div");
+        triangle.classList.add("triangle");
+
+        const spinner = document.createElement("div");
+        spinner.classList.add("spinner");
+
+        spinner.appendChild(triangle);
+        outer.appendChild(spinner);
+
+        triangle.classList.add(sizes[Math.floor(Math.random() * sizes.length)]);
+        triangle.classList.add(colors[Math.floor(Math.random() * colors.length)]);
+
+        const layer = Math.floor(Math.random() * 3);
+        outer.style.zIndex = `${layer}`;
+
+        const duration = (10 + (2 - layer) * 5 + Math.random() * 3).toFixed(2);
+        triangle.style.animationDuration = `${duration}s`;
+
+        const delay = (Math.random() * 3).toFixed(2);
+        triangle.style.animationDelay = `${delay}s`;
+
+        container.appendChild(outer);
+
+        setTimeout(() => {
+            outer.remove();
+        }, (parseFloat(duration) + parseFloat(delay)) * 1000 + 2000);
+    }
+
+    setInterval(spawnTriangle, 200);
+</script>
+<script>
+    fetch('/api/current-year')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Failed to fetch year");
+            }
+            return response.text();
+        })
+        .then(year => {
+            console.log("Current Year:", year);
+            document.getElementById("year-display").textContent = "Year: " + year;
+        })
+        .catch(error => {
+            console.error("Error fetching year:", error);
+        });
+</script>
+</body>
+</html>
