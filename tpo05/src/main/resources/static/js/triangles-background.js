@@ -2,21 +2,31 @@ const container = document.getElementById("background-container");
 
 const edges = ["from-top", "from-bottom", "from-left", "from-right"];
 const sizes = ["small", "medium", "large"];
-const colors = ["green1", "green2", "green3", "green4", "green5"];
+const colorClasses = ["color1", "color2", "color3", "color4", "color5"];
 
 function spawnTriangle() {
     const outer = document.createElement("div");
     outer.classList.add("triangle-outer");
 
-    const randomEdge = edges[Math.floor(Math.random() * edges.length)];
-    outer.classList.add(randomEdge);
+    const edge = edges[Math.floor(Math.random() * edges.length)];
+    outer.classList.add(edge);
 
-    if (randomEdge === "from-top" || randomEdge === "from-bottom") {
+    if (edge === "from-top") {
         const leftPercent = Math.random() * 100;
         outer.style.left = `calc(${leftPercent}% - 30px)`;
-    } else {
+        outer.style.top = `-60px`;
+    } else if (edge === "from-bottom") {
+        const leftPercent = Math.random() * 100;
+        outer.style.left = `calc(${leftPercent}% - 30px)`;
+        outer.style.top = `100vh`;
+    } else if (edge === "from-left") {
         const topPercent = Math.random() * 100;
         outer.style.top = `calc(${topPercent}% - 30px)`;
+        outer.style.left = `-60px`;
+    } else if (edge === "from-right") {
+        const topPercent = Math.random() * 100;
+        outer.style.top = `calc(${topPercent}% - 30px)`;
+        outer.style.left = `100vw`;
     }
 
     const rotation = Math.floor(Math.random() * 360);
@@ -28,11 +38,13 @@ function spawnTriangle() {
     const spinner = document.createElement("div");
     spinner.classList.add("spinner");
 
+    triangle.classList.add(
+        sizes[Math.floor(Math.random() * sizes.length)],
+        colorClasses[Math.floor(Math.random() * colorClasses.length)]
+    );
+
     spinner.appendChild(triangle);
     outer.appendChild(spinner);
-
-    triangle.classList.add(sizes[Math.floor(Math.random() * sizes.length)]);
-    triangle.classList.add(colors[Math.floor(Math.random() * colors.length)]);
 
     const layer = Math.floor(Math.random() * 3);
     outer.style.zIndex = `${layer}`;
@@ -45,9 +57,7 @@ function spawnTriangle() {
 
     container.appendChild(outer);
 
-    setTimeout(() => {
-        outer.remove();
-    }, (parseFloat(duration) + parseFloat(delay)) * 1000 + 2000);
+    setTimeout(() => outer.remove(), (parseFloat(duration) + parseFloat(delay)) * 1000 + 2000);
 }
 
 setInterval(spawnTriangle, 200);

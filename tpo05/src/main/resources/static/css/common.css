@@ -1,0 +1,230 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+    height: 100%;
+    overflow: hidden;
+    font-family: "Press Start 2P", monospace;
+    color: #000;
+}
+
+/* Shared central display */
+.clock, .year-display, .chooser-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 10;
+}
+
+/* Error box */
+.error-message {
+    position: absolute;
+    top: calc(50% + 60px);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 0, 0, 0.1);
+    border: 1px solid #f00;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    color: #d00;
+    font-size: 0.9rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    z-index: 20;
+}
+.error-message.visible {
+    opacity: 1;
+}
+
+/* Background container for both triangles and pipes */
+#background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.color1 {
+    background-color: dimgrey;
+    border-bottom-color: dimgrey;
+}
+.color2 {
+    background-color: grey;
+    border-bottom-color: grey;
+}
+.color3 {
+    background-color: slategrey;
+    border-bottom-color: slategrey;
+}
+.color4 {
+    background-color: darkgrey;
+    border-bottom-color: darkgrey;
+}
+.color5 {
+    background-color: lightgrey;
+    border-bottom-color: lightgrey;
+}
+
+/* --- TRIANGLES --- */
+.triangle-outer {
+    position: absolute;
+}
+.triangle {
+    position: absolute;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+/* Triangle animations */
+@keyframes fromTop {
+    0% { transform: translateY(-120vh) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(120vh) rotate(360deg); opacity: 0; }
+}
+@keyframes fromBottom {
+    0% { transform: translateY(120vh) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+}
+@keyframes fromLeft {
+    0% { transform: translateX(-120vw) rotate(0deg); opacity: 1; }
+    100% { transform: translateX(120vw) rotate(360deg); opacity: 0; }
+}
+@keyframes fromRight {
+    0% { transform: translateX(120vw) rotate(0deg); opacity: 1; }
+    100% { transform: translateX(-120vw) rotate(360deg); opacity: 0; }
+}
+
+.from-top .triangle { animation-name: fromTop; }
+.from-bottom .triangle { animation-name: fromBottom; }
+.from-left .triangle { animation-name: fromLeft; }
+.from-right .triangle { animation-name: fromRight; }
+
+.spinner {
+    animation: spin 10s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Triangle sizes (default color overrideable) */
+/* Equilateral triangle using borders */
+.small {
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 26px solid;
+    width: 0;
+    height: 0;
+    background: none;
+}
+
+.medium {
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 52px solid;
+    width: 0;
+    height: 0;
+    background: none;
+}
+
+.large {
+    border-left: 45px solid transparent;
+    border-right: 45px solid transparent;
+    border-bottom: 78px solid;
+    width: 0;
+    height: 0;
+    background: none;
+}
+
+/* --- PIPES --- */
+.pipe-wrapper {
+    position: absolute;
+}
+
+.pipe {
+    opacity: 0.8;
+    position: absolute;
+    animation-duration: 10s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+    filter: blur(0.5px);
+    box-shadow: 0 0 12px rgba(0, 191, 255, 0.5); /* fallback shadow */
+}
+
+/* Dimensions */
+.to-left, .to-right {
+    width: 180px;
+    height: 12px;
+}
+.to-top, .to-bottom {
+    width: 12px;
+    height: 180px;
+}
+
+/* Animations */
+@keyframes move-right {
+    0% { transform: translateX(0); opacity: 1; }
+    100% { transform: translateX(120vw); opacity: 0; }
+}
+@keyframes move-left {
+    0% { transform: translateX(0); opacity: 1; }
+    100% { transform: translateX(-120vw); opacity: 0; }
+}
+@keyframes move-up {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-120vh); opacity: 0; }
+}
+@keyframes move-down {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(120vh); opacity: 0; }
+}
+
+.to-right { animation-name: move-right; }
+.to-left  { animation-name: move-left; }
+.to-top   { animation-name: move-up; }
+.to-bottom{ animation-name: move-down; }
+
+/* ---- BUBBLES ----*/
+.bubble {
+    position: absolute;
+    bottom: -100px;
+    border-radius: 50%;
+    animation-name: rise;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+/* Keyframes for rising and fading */
+@keyframes rise {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-120vh);
+        opacity: 0;
+    }
+}
+
+/* --- Buttons & UI --- */
+.back-button {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 24px;
+    font-size: 0.8rem;
+    border: 2px solid;
+    border-radius: 6px;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}

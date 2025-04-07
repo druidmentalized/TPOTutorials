@@ -1,6 +1,6 @@
 const container = document.getElementById("background-container");
 const directions = ["to-right", "to-left", "to-top", "to-bottom"];
-const colors = ["#b3e5fc", "#81d4fa", "#4fc3f7", "#29b6f6", "#03a9f4"];
+const colorClasses = ["color1", "color2", "color3", "color4", "color5"];
 
 function spawnPipe() {
     const wrapper = document.createElement("div");
@@ -12,8 +12,8 @@ function spawnPipe() {
     const direction = directions[Math.floor(Math.random() * directions.length)];
     pipe.classList.add(direction);
 
-    const color = colors[Math.floor(Math.random() * colors.length)];
-    pipe.style.backgroundColor = color;
+    const colorClass = colorClasses[Math.floor(Math.random() * colorClasses.length)];
+    pipe.classList.add(colorClass);
 
     if (direction === "to-left" || direction === "to-right") {
         wrapper.style.top = Math.random() * 100 + "vh";
@@ -33,4 +33,4 @@ function spawnPipe() {
     setTimeout(() => wrapper.remove(), 11000);
 }
 
-setInterval(spawnPipe, 500);
+setInterval(spawnPipe, 300);
