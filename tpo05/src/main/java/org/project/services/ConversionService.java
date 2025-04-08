@@ -1,5 +1,7 @@
 package org.project.services;
 
+import org.project.exceptions.InvalidBaseException;
+import org.project.exceptions.InvalidDigitException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
@@ -16,7 +18,7 @@ public class ConversionService {
 
     public String convertBase(String value, int fromBase, int toBase) {
         if (fromBase < 2 || fromBase > 100 || toBase < 2 || toBase > 100) {
-            throw new IllegalArgumentException("Base must be between 2 and 100.");
+            throw new InvalidBaseException("Base must be between 2 and 100. Received fromBase=" + fromBase + ", toBase=" + toBase);
         }
 
         BigInteger decimal = toDecimal(value, fromBase);
@@ -31,7 +33,7 @@ public class ConversionService {
             char c = value.charAt(i);
             int digit = PRINTABLE_CHARS.indexOf(c);
             if (digit < 0 || digit >= fromBase) {
-                throw new IllegalArgumentException("Invalid digit '" + c + "' for base " + fromBase);
+                throw new InvalidDigitException("Invalid character '" + c + "' for base " + fromBase);
             }
             result = result.multiply(base).add(BigInteger.valueOf(digit));
         }

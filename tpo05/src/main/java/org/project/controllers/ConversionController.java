@@ -1,5 +1,7 @@
 package org.project.controllers;
 
+import org.project.exceptions.InvalidBaseException;
+import org.project.exceptions.InvalidDigitException;
 import org.project.services.ConversionService;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
@@ -29,34 +31,36 @@ public class ConversionController {
             @RequestParam String value,
             @RequestParam int fromBase,
             @RequestParam int toBase
-    ) throws IOException {
-        String template = loadHtmlTemplate("static/conversion/conversion-result.html");
-        String errorBlock;
+    ) {
+        String template;
+        try {
+            ClassPathResource resource = new ClassPathResource("static/conversion/conversion-result.html");
+            template =  StreamUtils.copyToString(resource.getInputStream(), StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            template = "<p class='error-message visible'>Error: " + e.getMessage() + "</p>";
+        }
+
         String replacedHtml;
 
-        System.out.println("INSIDE POST METHOD");
-
+        String replaceCommon = template
+                .replace("{{ORIGINAL}}", value)
+                .replace("{{FROM_BASE}}", String.valueOf(fromBase))
+                .replace("{{TO_BASE}}", String.valueOf(toBase));
         try {
             String converted = conversionService.convertBase(value, fromBase, toBase);
 
-            replacedHtml = template
-                    .replace("{{ORIGINAL}}", value)
-                    .replace("{{FROM_BASE}}", String.valueOf(fromBase))
-                    .replace("{{TO_BASE}}", String.valueOf(toBase))
+            replacedHtml = replaceCommon
                     .replace("{{CONVERTED}}", converted)
                     .replace("{{BIN}}", conversionService.convertBase(value, fromBase, BIN))
                     .replace("{{OCT}}", conversionService.convertBase(value, fromBase, OCT))
                     .replace("{{DEC}}", conversionService.convertBase(value, fromBase, DEC))
                     .replace("{{HEX}}", conversionService.convertBase(value, fromBase, HEX))
-                    .replace("{{ERROR_BLOCK}}", ""); // no error
+                    .replace("{{ERROR_BLOCK}}", "");
+        }
+        catch (InvalidBaseException | InvalidDigitException e) {
+            String errorBlock = "<p class='error-message visible'>Error: " + e.getMessage() + "</p>";
 
-        } catch (IllegalArgumentException e) {
-            errorBlock = "<p class='error-message visible'>Error: " + e.getMessage() + "</p>";
-
-            replacedHtml = template
-                    .replace("{{ORIGINAL}}", value)
-                    .replace("{{FROM_BASE}}", String.valueOf(fromBase))
-                    .replace("{{TO_BASE}}", String.valueOf(toBase))
+            replacedHtml = replaceCommon
                     .replace("{{CONVERTED}}", "-")
                     .replace("{{BIN}}", "-")
                     .replace("{{OCT}}", "-")
@@ -66,10 +70,5 @@ public class ConversionController {
         }
 
         return replacedHtml;
-    }
-
-    private String loadHtmlTemplate(String path) throws IOException {
-        ClassPathResource resource = new ClassPathResource(path);
-        return StreamUtils.copyToString(resource.getInputStream(), StandardCharsets.UTF_8);
     }
 }
