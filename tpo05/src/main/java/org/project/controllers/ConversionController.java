@@ -30,35 +30,41 @@ public class ConversionController {
     ) {
         String template = HtmlLoader.loadHtml("static/conversion/conversion-result.html");
 
-        String replacedHtml;
+        String converted;
+        String bin;
+        String oct;
+        String dec;
+        String hex;
+        String errorMsg = "";
 
-        String replaceCommon = template
-                .replace("{{ORIGINAL}}", value)
-                .replace("{{FROM_BASE}}", String.valueOf(fromBase))
-                .replace("{{TO_BASE}}", String.valueOf(toBase));
         try {
-            String converted = conversionService.convertBase(value, fromBase, toBase);
+            converted = conversionService.convertBase(value, fromBase, toBase);
 
-            replacedHtml = replaceCommon
-                    .replace("{{CONVERTED}}", converted)
-                    .replace("{{BIN}}", conversionService.convertBase(value, fromBase, BIN))
-                    .replace("{{OCT}}", conversionService.convertBase(value, fromBase, OCT))
-                    .replace("{{DEC}}", conversionService.convertBase(value, fromBase, DEC))
-                    .replace("{{HEX}}", conversionService.convertBase(value, fromBase, HEX))
-                    .replace("{{ERROR_BLOCK}}", "");
+            bin = conversionService.convertBase(value, fromBase, BIN);
+            oct = conversionService.convertBase(value, fromBase, OCT);
+            dec = conversionService.convertBase(value, fromBase, DEC);
+            hex = conversionService.convertBase(value, fromBase, HEX);
         }
         catch (InvalidBaseException | InvalidDigitException e) {
-            String errorBlock = "<p class='error-message visible'>Error: " + e.getMessage() + "</p>";
+            converted = "-";
 
-            replacedHtml = replaceCommon
-                    .replace("{{CONVERTED}}", "-")
-                    .replace("{{BIN}}", "-")
-                    .replace("{{OCT}}", "-")
-                    .replace("{{DEC}}", "-")
-                    .replace("{{HEX}}", "-")
-                    .replace("{{ERROR_BLOCK}}", errorBlock);
+            bin = "-";
+            oct = "-";
+            dec = "-";
+            hex = "-";
+
+            errorMsg = "<p class='error-message visible'>Error: " + e.getMessage() + "</p>";
         }
 
-        return replacedHtml;
+        return template
+                .replace("{{ORIGINAL}}", value)
+                .replace("{{FROM_BASE}}", String.valueOf(fromBase))
+                .replace("{{TO_BASE}}", String.valueOf(toBase))
+                .replace("{{CONVERTED}}", converted)
+                .replace("{{BIN}}", bin)
+                .replace("{{OCT}}", oct)
+                .replace("{{DEC}}", dec)
+                .replace("{{HEX}}", hex)
+                .replace("{{ERROR_BLOCK}}", errorMsg);
     }
 }
