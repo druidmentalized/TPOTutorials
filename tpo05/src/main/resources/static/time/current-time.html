@@ -8,52 +8,11 @@
 </head>
 <body>
 <div class="clock-display">
-    <p id="clock">Loading from server...</p>
-    <p id="error-msg" class="error-message"></p>
+    <p class="clock" id="clock">{{TIME}}</p>
+    {{ERROR_BLOCK}}
 </div>
 
 <a class="base-button back-button" href="/time/chooser.html">To Chooser</a>
 
-<div class="background-container" id="background-container"></div>
-<script src="/js/background-effects.js" onload="startTriangles()"></script>
-
-<script>
-    const params = new URLSearchParams(window.location.search);
-    const timezone = params.get("timezone");
-    const format = params.get("format");
-
-    let apiUrl = '/api/current-time';
-    const query = [];
-
-    if (timezone) query.push(`timezone=${encodeURIComponent(timezone)}`);
-    if (format) query.push(`format=${encodeURIComponent(format)}`);
-
-    if (query.length > 0) {
-        apiUrl += '?' + query.join('&');
-    }
-
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            const clockElement = document.getElementById("clock");
-            const errorElement = document.getElementById("error-msg");
-
-            if (data.time) {
-                clockElement.textContent = data.time;
-            }
-
-            if (data.error) {
-                errorElement.textContent = data.error;
-                errorElement.classList.add("visible");
-
-                setTimeout(() => {
-                    errorElement.classList.remove("visible");
-                }, 5000);
-            }
-        })
-        .catch(error => {
-            document.getElementById("clock").textContent = "Failed to load time: " + error;
-        });
-</script>
 </body>
 </html>

@@ -3,13 +3,9 @@ package org.project.controllers;
 import org.project.exceptions.InvalidBaseException;
 import org.project.exceptions.InvalidDigitException;
 import org.project.services.ConversionService;
-import org.springframework.core.io.ClassPathResource;
+import org.project.utils.HtmlLoader;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 @Controller
 public class ConversionController {
@@ -32,13 +28,7 @@ public class ConversionController {
             @RequestParam int fromBase,
             @RequestParam int toBase
     ) {
-        String template;
-        try {
-            ClassPathResource resource = new ClassPathResource("static/conversion/conversion-result.html");
-            template =  StreamUtils.copyToString(resource.getInputStream(), StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            template = "<p class='error-message visible'>Error: " + e.getMessage() + "</p>";
-        }
+        String template = HtmlLoader.loadHtml("static/conversion/conversion-result.html");
 
         String replacedHtml;
 

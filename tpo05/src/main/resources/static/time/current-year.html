@@ -9,31 +9,11 @@
 <body>
 
 <div class="year-display">
-    <p id="year">Loading from server...</p>
-    <p id="error-msg" class="error-message"></p>
+    <p class="year-display" id="year">{{YEAR}}</p>
+    {{ERROR_BLOCK}}
 </div>
 
 <a class="base-button back-button" href="/time/chooser.html">To Chooser</a>
 
-<div class="background-container" id="background-container"></div>
-<script src="/js/background-effects.js" onload="startTriangles()"></script>
-
-<script>
-    fetch('/api/current-year')
-        .then(response => response.json())
-        .then(data => {
-            const yearElement = document.getElementById("year");
-
-            if (data.year) {
-                yearElement.textContent = "Year: " + data.year
-            }
-            else {
-                yearElement.textContent = "Undefined"
-            }
-        })
-        .catch(error => {
-            console.error("Error fetching year:", error);
-        });
-</script>
 </body>
 </html>
