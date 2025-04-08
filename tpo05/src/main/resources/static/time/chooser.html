@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Time Options</title>
     <link rel="stylesheet" href="/css/common.css">
-    <link rel="stylesheet" href="/css/time.css" />
+    <link rel="stylesheet" href="/css/time.css"/>
 </head>
 <body>
 <div class="chooser-container">
-    <div class="chooser-title">What would you like to view?</div>
-    <a class="base-button chooser-button" href="/current-time?timezone=Europe/Warsaw&format=hh:mm:ss.SSSS yyyy/MM/dd">
-        View Time (Customizable)
-    </a>
-    <a class="base-button chooser-button" href="/current-year">
-        View Current Year
-    </a>
+    <p>What would you like to view?</p>
+    <div class="button-group">
+        <a class="base-button chooser-button"
+           href="/current-time?timezone=Europe/Warsaw&format=hh:mm:ss.SSSS yyyy/MM/dd">
+            View Time (Customizable)
+        </a>
+        <a class="base-button chooser-button" href="/current-year">
+            View Current Year
+        </a>
+    </div>
 </div>
 
 <div class="background-container" id="background-container"></div>

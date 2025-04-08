@@ -10,21 +10,13 @@
 .title {
     font-size: 2rem;
     margin-bottom: 2rem;
-    color: #0277bd; /* Deep blue to match pipe color tones */
+    color: #0277bd;
 }
 
-.button-group {
-    display: flex;
-    gap: 2rem;
-    justify-content: center;
-}
-
-/* Unified button styling (not using .color1–.color5) */
 .main-button {
     font-size: 1.2rem;
     background-color: #4fc3f7;
 }
-
 .main-button:hover {
     background-color: #29b6f6;
 }

@@ -5,6 +5,14 @@
     <title>Conversion Result</title>
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/conversion.css">
+    <style>
+        .back-button {
+            position: static;
+            bottom: auto;
+            left: auto;
+            transform: none;
+        }
+    </style>
 </head>
 <body>
 <div class="conversion-wrapper">
@@ -20,14 +28,17 @@
         <p><strong>DECIMAL:</strong> {{DEC}}</p>
         <p><strong>HEXADECIMAL:</strong> {{HEX}}</p>
     </div>
+
     <div>
         {{ERROR_BLOCK}}
     </div>
 
+    <div class="button-group">
+        <a href="/conversion/conversion.html" class="base-button back-button">Convert Again</a>
+        <a href="/index.html" class="base-button back-button">Main Menu</a>
+    </div>
 </div>
 
-<a href="/conversion/conversion.html" class="base-button conversion-button">Convert Again</a>
-<a href="/index.html" class="base-button back-button">Main Menu</a>
 
 <div id="background-container" class="background-container"></div>
 <script src="/js/bubbles-background.js"></script>

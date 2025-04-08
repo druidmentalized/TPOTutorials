@@ -9,13 +9,10 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +29,7 @@ public class TimeController {
     }
 
     @GetMapping("/current-time")
-    public ResponseEntity<Resource> redirectToStaticCurrentTime() {
+    public ResponseEntity<Resource> getCurrentTime() {
         ClassPathResource htmlFile = new ClassPathResource("static/time/current-time.html");
         return ResponseEntity.ok()
                 .contentType(MediaType.TEXT_HTML)
@@ -41,7 +38,7 @@ public class TimeController {
 
     @GetMapping("/api/current-time")
     @ResponseBody
-    public Map<String, String> getCurrentTime(
+    public Map<String, String> getCurrentTimeAPI(
             @RequestParam(value = "timezone", required = false) String timezone,
             @RequestParam(value = "format", required = false) String format) {
 
@@ -75,7 +72,7 @@ public class TimeController {
     }
 
     @GetMapping("/current-year")
-    public ResponseEntity<Resource> redirectToStaticCurrentYear() {
+    public ResponseEntity<Resource> getCurrentYear() {
         ClassPathResource htmlFile = new ClassPathResource("static/time/current-year.html");
         return ResponseEntity.ok()
                 .contentType(MediaType.TEXT_HTML)
@@ -84,7 +81,7 @@ public class TimeController {
 
     @GetMapping("/api/current-year")
     @ResponseBody
-    public Map<String, String> getCurrentYear() {
+    public Map<String, String> getCurrentYearAPI() {
         Map<String, String> response = new HashMap<>();
         response.put("year", timeService.getCurrentYear());
         return response;

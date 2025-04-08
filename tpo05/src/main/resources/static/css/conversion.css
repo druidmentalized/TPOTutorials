@@ -1,4 +1,3 @@
-/* Orange-based theme for conversion */
 .title {
     color: #e65100;
     font-size: 2rem;
@@ -27,7 +26,7 @@
     color: #444;
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     font-family: "Press Start 2P", monospace;
 }
 
@@ -43,12 +42,21 @@
     box-sizing: border-box;
 }
 
-.convert-button, .back-button, .conversion-button {
+.convert-button,
+.conversion-button {
     background-color: #ffa726;
     color: white;
 }
+.convert-button:hover,
+.conversion-button:hover {
+    background-color: #fb8c00;
+}
 
-.convert-button:hover, .back-button:hover, .conversion-button:hover {
+.back-button {
+    background-color: #ffa726;
+    color: white;
+}
+.back-button:hover {
     background-color: #fb8c00;
 }
 

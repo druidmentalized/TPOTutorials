@@ -1,3 +1,15 @@
+/* Positioning for time-related elements */
+.clock-display,
+.year-display,
+.chooser-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 10;
+}
+
 .color1 {
     border-bottom-color: #00cc00;
 }
@@ -14,11 +26,17 @@
     border-bottom-color: #ccffcc;
 }
 
-.back-button, .chooser-button {
+.chooser-button {
     background-color: #00cc00;
     color: white;
 }
+.chooser-button:hover {
+    background-color: #009900;
+}
 
-.back-button:hover, .chooser-button:hover {
+.back-button {
+    background-color: #00cc00;
+}
+.back-button:hover {
     background-color: #009900;
 }
