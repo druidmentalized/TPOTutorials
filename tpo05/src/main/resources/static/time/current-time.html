@@ -8,18 +8,14 @@
 </head>
 <body>
 <div class="clock-display">
-
     <p id="clock">Loading from server...</p>
-
     <p id="error-msg" class="error-message"></p>
-
 </div>
-
-<div class="background-container" id="background-container"></div>
 
 <a class="base-button back-button" href="/time/chooser.html">To Chooser</a>
 
-<script src="/js/triangles-background.js"></script>
+<div class="background-container" id="background-container"></div>
+<script src="/js/background-effects.js" onload="startTriangles()"></script>
 
 <script>
     const params = new URLSearchParams(window.location.search);

@@ -7,21 +7,22 @@
     <link rel="stylesheet" href="/css/time.css" />
 </head>
 <body>
-<div class="year-display" id="year-display">Loading from server...</div>
 
-<div id="error-msg" class="error-message"></div>
-
-<div class="background-container" id="background-container"></div>
+<div class="year-display">
+    <p id="year">Loading from server...</p>
+    <p id="error-msg" class="error-message"></p>
+</div>
 
 <a class="base-button back-button" href="/time/chooser.html">To Chooser</a>
 
-<script src="/js/triangles-background.js"></script>
+<div class="background-container" id="background-container"></div>
+<script src="/js/background-effects.js" onload="startTriangles()"></script>
 
 <script>
     fetch('/api/current-year')
         .then(response => response.json())
         .then(data => {
-            const yearElement = document.getElementById("year-display");
+            const yearElement = document.getElementById("year");
 
             if (data.year) {
                 yearElement.textContent = "Year: " + data.year
