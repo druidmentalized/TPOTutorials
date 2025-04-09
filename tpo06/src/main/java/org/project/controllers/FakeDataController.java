@@ -34,13 +34,21 @@ public class FakeDataController {
             @RequestParam(value = "additionalFields", required = false) EnumSet<AdditionalFields> additionalFields,
             Model model
     ) {
-        List<PersonDto> generatedPeople = fakeDataService.generatePersons(entriesQty, language,
-                additionalFields != null ? additionalFields : EnumSet.noneOf(AdditionalFields.class));
+        try {
+            List<PersonDto> generatedPeople = fakeDataService.generatePersons(
+                    entriesQty,
+                    language,
+                    additionalFields != null ? additionalFields : EnumSet.noneOf(AdditionalFields.class)
+            );
 
-        model.addAttribute("people", generatedPeople);
-        model.addAttribute("selected", additionalFields);
-
-        return "fake-data";
+            model.addAttribute("people", generatedPeople);
+            model.addAttribute("selected", additionalFields);
+            return "fake-data";
+        } catch (Exception ex) {
+            model.addAttribute("error", "An error occurred while generating data: " + ex.getMessage());
+            model.addAttribute("selected", List.of());
+            return "fake-data";
+        }
     }
 
 }
