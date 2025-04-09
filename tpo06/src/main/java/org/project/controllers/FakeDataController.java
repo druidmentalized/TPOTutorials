@@ -2,7 +2,7 @@ package org.project.controllers;
 
 import org.project.models.PersonDto;
 import org.project.services.FakeDataService;
-import org.project.utils.AdditionalFields;
+import org.project.enums.AdditionalFields;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +21,9 @@ public class FakeDataController {
         this.fakeDataService = fakeDataService;
     }
 
-    @GetMapping("/fake-data")
+    @GetMapping({"/", "/fake-data"})
     public String getFakeData(Model model) {
+        model.addAttribute("selected", List.of());
         return "fake-data";
     }
 
@@ -35,7 +36,10 @@ public class FakeDataController {
     ) {
         List<PersonDto> generatedPeople = fakeDataService.generatePersons(entriesQty, language,
                 additionalFields != null ? additionalFields : EnumSet.noneOf(AdditionalFields.class));
+
         model.addAttribute("people", generatedPeople);
+        model.addAttribute("selected", additionalFields);
+
         return "fake-data";
     }
 

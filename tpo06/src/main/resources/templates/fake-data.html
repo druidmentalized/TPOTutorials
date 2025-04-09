@@ -1,10 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fake Data Generator</title>
+    <link rel="stylesheet" href="/css/fake-data.css">
 </head>
-<body>
+<body class="dark-theme">
+
+<div class="main-wrapper">
+    <h1 class="title">Fake Data Generator</h1>
+
+    <form th:action="@{/fake-data}" method="post" class="form-wrapper">
+        <label>
+            People amount:
+            <input type="number" name="entriesQty" min="1" required>
+        </label>
+
+        <label>
+            Drop-down for language:
+            <select name="language" required>
+                <option value="en">English</option>
+                <option value="pl">Polish</option>
+                <option value="de">German</option>
+                <option value="fr">French</option>
+                <option value="es">Spanish</option>
+                <option value="it">Italian</option>
+                <option value="pt">Portuguese</option>
+                <option value="nl">Dutch</option>
+                <option value="ja">Japanese</option>
+                <option value="ru">Russian</option>
+            </select>
+        </label>
+
+        <fieldset>
+            <legend>Select additional fields to include:</legend>
+            <div class="checkbox-grid">
+                <label><input type="checkbox" name="additionalFields" value="ADDRESS">Address</label>
+                <label><input type="checkbox" name="additionalFields" value="UNIVERSITY_NAME">University</label>
+                <label><input type="checkbox" name="additionalFields" value="COUNTRY_OF_ORIGIN">Origin</label>
+                <label><input type="checkbox" name="additionalFields" value="CREDIT_CARD_NUMBER">Credit card</label>
+                <label><input type="checkbox" name="additionalFields" value="FAVOURITE_COLOR">Color</label>
+                <label><input type="checkbox" name="additionalFields" value="HOBBY">Hobby</label>
+                <label><input type="checkbox" name="additionalFields" value="HEIGHT">Height</label>
+                <label><input type="checkbox" name="additionalFields" value="ILLNESS">Illness</label>
+                <label><input type="checkbox" name="additionalFields" value="BLOOD_TYPE">Blood Type</label>
+            </div>
+        </fieldset>
+
+        <button type="submit" class="base-button">Submit</button>
+    </form>
+
+    <div th:if="${error != null}" class="error-message visible">
+        <p th:text="${error}"></p>
+    </div>
+
+    <div th:if="${people != null and !people.isEmpty()}" class="table-section">
+        <h2>Generated People</h2>
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Date of Birth</th>
+                    <th th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).ADDRESS)}">Address</th>
+                    <th th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).UNIVERSITY_NAME)}">University</th>
+                    <th th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).COUNTRY_OF_ORIGIN)}">Country</th>
+                    <th th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).CREDIT_CARD_NUMBER)}">Credit Card</th>
+                    <th th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).FAVOURITE_COLOR)}">Color</th>
+                    <th th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).HOBBY)}">Hobby</th>
+                    <th th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).HEIGHT)}">Height</th>
+                    <th th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).ILLNESS)}">Illness</th>
+                    <th th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).BLOOD_TYPE)}">Blood Type</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p : ${people}">
+                    <td th:text="${p.name}">Name</td>
+                    <td th:text="${p.surname}">Surname</td>
+                    <td th:text="${p.dateOfBirth}">DOB</td>
+                    <td th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).ADDRESS)}" th:text="${p.address}">Address</td>
+                    <td th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).UNIVERSITY_NAME)}" th:text="${p.universityName}">University</td>
+                    <td th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).COUNTRY_OF_ORIGIN)}" th:text="${p.countryOfOrigin}">Country</td>
+                    <td th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).CREDIT_CARD_NUMBER)}" th:text="${p.creditCardNumber}">Card</td>
+                    <td th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).FAVOURITE_COLOR)}" th:text="${p.favouriteColor}">Color</td>
+                    <td th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).HOBBY)}" th:text="${p.hobby}">Hobby</td>
+                    <td th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).HEIGHT)}" th:text="${p.height}">Height</td>
+                    <td th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).ILLNESS)}" th:text="${p.illness}">Illness</td>
+                    <td th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).BLOOD_TYPE)}" th:text="${p.bloodType}">Blood</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

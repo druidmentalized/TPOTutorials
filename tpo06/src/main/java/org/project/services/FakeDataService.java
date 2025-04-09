@@ -2,7 +2,7 @@ package org.project.services;
 
 import net.datafaker.Faker;
 import org.project.models.PersonDto;
-import org.project.utils.AdditionalFields;
+import org.project.enums.AdditionalFields;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,7 +18,6 @@ public class FakeDataService {
 
         Faker faker = new Faker(new Locale(language));
 
-        //todo make data generation
         for (int i = 0; i < entriesQty; i++) {
             PersonDto person = new PersonDto();
 

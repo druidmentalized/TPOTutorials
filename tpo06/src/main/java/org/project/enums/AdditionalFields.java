@@ -1,4 +1,4 @@
-package org.project.utils;
+package org.project.enums;
 
 public enum AdditionalFields {
     ADDRESS,
