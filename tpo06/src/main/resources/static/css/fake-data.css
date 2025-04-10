@@ -37,8 +37,7 @@ label {
     color: #dcdcdc;
 }
 
-input[type="number"],
-select {
+input[type="number"] {
     background-color: #2e2e2e;
     color: #eee;
     border: 2px solid #555;
@@ -50,6 +49,26 @@ select {
     text-align: center;
     text-align-last: center;
     direction: ltr;
+}
+
+select {
+    background-color: #2e2e2e;
+    color: #eee;
+    border: 2px solid #555;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-top: 0.25rem;
+    appearance: none;
+    text-align: center;
+    text-align-last: center;
+
+    background-image: linear-gradient(45deg, transparent 50%, #ccc 50%),
+    linear-gradient(135deg, #ccc 50%, transparent 50%);
+    background-position: calc(100% - 20px) center, calc(100% - 15px) center;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+    padding-right: 2rem; /* spacing for icon */
 }
 
 select:hover,
@@ -92,8 +111,8 @@ legend {
 }
 
 input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
+    width: 34px;
+    height: 34px;
     border-radius: 4px;
     background-color: #2e2e2e;
     border: 2px solid #aaa;
@@ -101,10 +120,11 @@ input[type="checkbox"] {
     appearance: none;
     cursor: pointer;
     position: relative;
+    display: inline-block;
 }
 
 input[type="checkbox"]:checked {
-    background-color: #4CAF50; /* green inside */
+    background-color: #4CAF50;
     border-color: #4CAF50;
 }
 
@@ -112,11 +132,11 @@ input[type="checkbox"]::after {
     content: '';
     position: absolute;
     top: 2px;
-    left: 6px;
-    width: 4px;
-    height: 10px;
+    left: 9px;
+    width: 10px;
+    height: 18px;
     border: solid #000;
-    border-width: 0 2px 2px 0;
+    border-width: 0 4px 4px 0;
     transform: rotate(45deg);
     display: none;
 }
