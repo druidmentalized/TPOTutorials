@@ -16,7 +16,7 @@ public class FakeDataService {
     public List<PersonDto> generatePersons(int entriesQty, String language, EnumSet<AdditionalFields> additionalFields) {
         List<PersonDto> people = new ArrayList<>();
 
-        Faker faker = new Faker(new Locale(language));
+        Faker faker = new Faker(Locale.of(language));
 
         for (int i = 0; i < entriesQty; i++) {
             PersonDto person = new PersonDto();
