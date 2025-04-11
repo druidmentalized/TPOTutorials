@@ -60,18 +60,18 @@
             <table class="data-table">
                 <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Surname</th>
-                    <th>Date of Birth</th>
-                    <th th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).ADDRESS)}">Address</th>
-                    <th th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).UNIVERSITY_NAME)}">University</th>
-                    <th th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).COUNTRY_OF_ORIGIN)}">Country</th>
-                    <th th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).CREDIT_CARD_NUMBER)}">Credit Card</th>
-                    <th th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).FAVOURITE_COLOR)}">Color</th>
-                    <th th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).HOBBY)}">Hobby</th>
-                    <th th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).HEIGHT)}">Height</th>
-                    <th th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).ILLNESS)}">Illness</th>
-                    <th th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).BLOOD_TYPE)}">Blood Type</th>
+                    <th th:text="#{column.name}">Name</th>
+                    <th th:text="#{column.surname}">Surname</th>
+                    <th th:text="#{column.dateOfBirth}">Date of Birth</th>
+                    <th th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).ADDRESS)}" th:text="#{column.address}">Address</th>
+                    <th th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).UNIVERSITY_NAME)}" th:text="#{column.university}">University</th>
+                    <th th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).COUNTRY_OF_ORIGIN)}" th:text="#{column.country}">Country</th>
+                    <th th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).CREDIT_CARD_NUMBER)}" th:text="#{column.creditCard}">Credit Card</th>
+                    <th th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).FAVOURITE_COLOR)}" th:text="#{column.color}">Color</th>
+                    <th th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).HOBBY)}" th:text="#{column.hobby}">Hobby</th>
+                    <th th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).HEIGHT)}" th:text="#{column.height}">Height</th>
+                    <th th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).ILLNESS)}" th:text="#{column.illness}">Illness</th>
+                    <th th:if="${#sets.contains(selected, T(org.project.enums.AdditionalFields).BLOOD_TYPE)}" th:text="#{column.blood}">Blood Type</th>
                 </tr>
                 </thead>
                 <tbody>

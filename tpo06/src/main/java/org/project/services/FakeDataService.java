@@ -13,10 +13,10 @@ import java.util.Locale;
 @Service
 public class FakeDataService {
 
-    public List<PersonDto> generatePersons(int entriesQty, String language, EnumSet<AdditionalFields> additionalFields) {
+    public List<PersonDto> generatePeople(int entriesQty, Locale locale, EnumSet<AdditionalFields> additionalFields) {
         List<PersonDto> people = new ArrayList<>();
 
-        Faker faker = new Faker(Locale.of(language));
+        Faker faker = new Faker(locale);
 
         for (int i = 0; i < entriesQty; i++) {
             PersonDto person = new PersonDto();
@@ -60,5 +60,4 @@ public class FakeDataService {
 
         return people;
     }
-
 }

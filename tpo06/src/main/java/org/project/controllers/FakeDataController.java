@@ -3,22 +3,24 @@ package org.project.controllers;
 import org.project.models.PersonDto;
 import org.project.services.FakeDataService;
 import org.project.enums.AdditionalFields;
+import org.project.services.MessagesService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.EnumSet;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class FakeDataController {
 
     private final FakeDataService fakeDataService;
+    private final MessagesService messages;
 
-    public FakeDataController(FakeDataService fakeDataService) {
+    public FakeDataController(FakeDataService fakeDataService, MessagesService messagesService) {
         this.fakeDataService = fakeDataService;
+        this.messages = messagesService;
     }
 
     @GetMapping({"/", "/fake-data"})
@@ -30,23 +32,24 @@ public class FakeDataController {
     @PostMapping("/fake-data")
     public String postFakeData(
             @RequestParam(value = "entriesQty") int entriesQty,
-            @RequestParam(value = "language") String language,
             @RequestParam(value = "additionalFields", required = false) EnumSet<AdditionalFields> additionalFields,
+            Locale locale,
             Model model
     ) {
+        model.addAttribute("messages", messages);
         try {
-            List<PersonDto> generatedPeople = fakeDataService.generatePersons(
+            additionalFields = additionalFields != null ? additionalFields : EnumSet.noneOf(AdditionalFields.class);
+            List<PersonDto> generatedPeople = fakeDataService.generatePeople(
                     entriesQty,
-                    language,
-                    additionalFields != null ? additionalFields : EnumSet.noneOf(AdditionalFields.class)
+                    locale,
+                   additionalFields
             );
-
             model.addAttribute("people", generatedPeople);
             model.addAttribute("selected", additionalFields);
             return "fake-data";
         } catch (Exception ex) {
             model.addAttribute("error", "An error occurred while generating data: " + ex.getMessage());
-            model.addAttribute("selected", List.of());
+            model.addAttribute("selected", Set.of());
             return "fake-data";
         }
     }
