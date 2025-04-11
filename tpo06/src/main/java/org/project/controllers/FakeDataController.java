@@ -3,7 +3,6 @@ package org.project.controllers;
 import org.project.models.PersonDto;
 import org.project.services.FakeDataService;
 import org.project.enums.AdditionalFields;
-import org.project.services.MessagesService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,11 +15,9 @@ import java.util.*;
 public class FakeDataController {
 
     private final FakeDataService fakeDataService;
-    private final MessagesService messages;
 
-    public FakeDataController(FakeDataService fakeDataService, MessagesService messagesService) {
+    public FakeDataController(FakeDataService fakeDataService) {
         this.fakeDataService = fakeDataService;
-        this.messages = messagesService;
     }
 
     @GetMapping({"/", "/fake-data"})
@@ -36,7 +33,6 @@ public class FakeDataController {
             Locale locale,
             Model model
     ) {
-        model.addAttribute("messages", messages);
         try {
             additionalFields = additionalFields != null ? additionalFields : EnumSet.noneOf(AdditionalFields.class);
             List<PersonDto> generatedPeople = fakeDataService.generatePeople(
