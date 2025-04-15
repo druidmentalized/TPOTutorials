@@ -1,6 +1,6 @@
-package org.project.models;
+package org.project.entities;
 
-public class PersonDto {
+public class Person {
     String name;
     String surname;
     String dateOfBirth;

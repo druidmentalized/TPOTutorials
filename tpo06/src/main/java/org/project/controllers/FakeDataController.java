@@ -1,6 +1,6 @@
 package org.project.controllers;
 
-import org.project.models.PersonDto;
+import org.project.dto.PersonDto;
 import org.project.services.FakeDataService;
 import org.project.enums.AdditionalFields;
 import org.springframework.stereotype.Controller;
@@ -42,12 +42,11 @@ public class FakeDataController {
             );
             model.addAttribute("people", generatedPeople);
             model.addAttribute("selected", additionalFields);
-            return "fake-data";
         } catch (Exception ex) {
             model.addAttribute("error", "An error occurred while generating data: " + ex.getMessage());
             model.addAttribute("selected", Set.of());
-            return "fake-data";
         }
+        return "fake-data";
     }
 
 }
