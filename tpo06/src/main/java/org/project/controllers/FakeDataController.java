@@ -41,10 +41,8 @@ public class FakeDataController {
                    additionalFields
             );
             model.addAttribute("people", generatedPeople);
-            model.addAttribute("selected", additionalFields);
         } catch (Exception ex) {
             model.addAttribute("error", "An error occurred while generating data: " + ex.getMessage());
-            model.addAttribute("selected", Set.of());
         }
         return "fake-data";
     }

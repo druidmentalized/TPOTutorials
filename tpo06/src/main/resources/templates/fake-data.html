@@ -60,12 +60,7 @@
             <table class="data-table">
                 <thead>
                 <tr>
-                    <th th:text="#{column.name}">Name</th>
-                    <th th:text="#{column.surname}">Surname</th>
-                    <th th:text="#{column.dateOfBirth}">Date of Birth</th>
-
                     <th th:each="key : ${people[0].fieldsMap.keySet()}"
-                        th:if="${key != 'name' and key != 'surname' and key != 'dateOfBirth'}"
                         th:text="${#messages.msg('column.' + key)}">
                         Field
                     </th>
@@ -73,8 +68,10 @@
                 </thead>
                 <tbody>
                 <tr th:each="p : ${people}">
-                    <td th:each="entry : ${p.fieldsMap.entrySet()}"
-                        th:text="${entry.value}">Value</td>
+                    <td th:each="val : ${#lists.toList(p.fieldsMap.values())}"
+                        th:text="${val}">
+                        Value
+                    </td>
                 </tr>
                 </tbody>
             </table>
