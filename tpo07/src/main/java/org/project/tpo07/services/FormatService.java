@@ -4,6 +4,7 @@ import com.google.googlejavaformat.java.Formatter;
 import com.google.googlejavaformat.java.FormatterException;
 import org.project.tpo07.dto.FormatRequest;
 import org.project.tpo07.dto.FormatResult;
+import org.project.tpo07.repositories.FileFormatResultsRepository;
 import org.project.tpo07.repositories.FormatResultsRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +14,8 @@ public class FormatService {
 
     private final Formatter formatter = new Formatter();
 
-    public FormatService(FormatResultsRepository formatResultsRepository) {
-        this.formatResultsRepository = formatResultsRepository;
+    public FormatService(FileFormatResultsRepository fileFormatResultsRepository) {
+        this.formatResultsRepository = fileFormatResultsRepository;
     }
 
     public String formatCode(String sourceCode) throws FormatterException {

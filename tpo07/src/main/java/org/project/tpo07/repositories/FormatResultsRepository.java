@@ -1,8 +1,11 @@
 package org.project.tpo07.repositories;
 
-import org.springframework.stereotype.Repository;
+import org.project.tpo07.dto.FormatResult;
 
-@Repository
-public class FormatResultsRepository {
+import java.util.List;
 
+public interface FormatResultsRepository {
+    void save(FormatResult formatResult);
+    FormatResult findById(String id);
+    List<FormatResult> findAll();
 }
