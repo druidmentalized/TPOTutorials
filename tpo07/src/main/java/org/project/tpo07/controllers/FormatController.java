@@ -9,8 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class FormatController {
@@ -26,7 +26,7 @@ public class FormatController {
         return "format-code";
     }
 
-    @PostMapping("/code-format")
+    @PostMapping("/format-code")
     public String postCodeFormat(
             @ModelAttribute FormatRequest formatRequest,
             Model model) {
@@ -47,15 +47,15 @@ public class FormatController {
         return "format-code";
     }
 
-    @GetMapping("/format-result/{id}")
+    @GetMapping("/format-result")
     public String getFormattedCode(
-            @PathVariable String id,
+            @RequestParam String id,
             Model model) {
         try {
             FormatResult formatResult = formatService.getResultById(id);
             model.addAttribute("formatResult", formatResult);
-        } catch (Exception e /*TODO: change to normal custom exception*/) {
-            //TODO: make normal fallback
+        } catch (Exception e) {
+            //TODO: handle error (fallback or redirect)
         }
         return "format-result";
     }
