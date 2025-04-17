@@ -1,11 +1,15 @@
 package org.project.tpo07.controllers;
 
+import com.google.googlejavaformat.java.FormatterException;
 import org.project.tpo07.dto.FormatRequest;
 import org.project.tpo07.dto.FormatResult;
 import org.project.tpo07.services.FormatService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class FormatController {
@@ -30,8 +34,10 @@ public class FormatController {
             formattedCode = formatService.formatCode(formatRequest.getSourceCode());
             formatRequest.setFormattedCode(formattedCode);
             formatService.saveResult(formatRequest);
-        } catch (Exception e /*TODO: change to normal custom exception*/) {
-            model.addAttribute("error", e.getMessage());
+        } catch (FormatterException e) {
+            model.addAttribute("error", "Invalid Java code: " + e.getMessage());
+        } catch (Exception e) {
+            model.addAttribute("error", "Error: " + e.getMessage());
         }
 
         formatRequest.setFormattedCode(formattedCode);
@@ -43,7 +49,7 @@ public class FormatController {
             @PathVariable String id,
             Model model) {
         try {
-            FormatResult formatResult= formatService.getResultById(id);
+            FormatResult formatResult = formatService.getResultById(id);
             model.addAttribute("formatResult", formatResult);
         } catch (Exception e /*TODO: change to normal custom exception*/) {
             //TODO: make normal fallback

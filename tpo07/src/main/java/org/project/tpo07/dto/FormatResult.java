@@ -1,8 +1,9 @@
 package org.project.tpo07.dto;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class FormatResult {
+public class FormatResult implements Serializable {
     private String id;
     private String sourceCode;
     private String formattedCode;
