@@ -3,6 +3,7 @@ package org.project.tpo07.controllers;
 import com.google.googlejavaformat.java.FormatterException;
 import org.project.tpo07.dto.FormatRequest;
 import org.project.tpo07.dto.FormatResult;
+import org.project.tpo07.exceptions.ResultPersistenceException;
 import org.project.tpo07.services.FormatService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +37,8 @@ public class FormatController {
             formatService.saveResult(formatRequest);
         } catch (FormatterException e) {
             model.addAttribute("error", "Invalid Java code: " + e.getMessage());
+        } catch (ResultPersistenceException e) {
+            model.addAttribute("error", "Exception during saving: " + e.getMessage());
         } catch (Exception e) {
             model.addAttribute("error", "Error: " + e.getMessage());
         }

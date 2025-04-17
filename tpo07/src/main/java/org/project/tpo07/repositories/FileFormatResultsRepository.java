@@ -1,6 +1,8 @@
 package org.project.tpo07.repositories;
 
 import org.project.tpo07.dto.FormatResult;
+import org.project.tpo07.exceptions.ResultNotFoundException;
+import org.project.tpo07.exceptions.ResultPersistenceException;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
@@ -27,7 +29,7 @@ public class FileFormatResultsRepository implements FormatResultsRepository {
         try (var out = new ObjectOutputStream(Files.newOutputStream(storagePath.resolve(result.getId() + ".ser")))) {
             out.writeObject(result);
         } catch (IOException e) {
-            throw new RuntimeException("Error saving format result", e);
+            throw new ResultPersistenceException("Error saving format result", e);
         }
     }
 
@@ -36,7 +38,7 @@ public class FileFormatResultsRepository implements FormatResultsRepository {
         try (var in = new ObjectInputStream(Files.newInputStream(storagePath.resolve(id + ".ser")))) {
             return (FormatResult) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            return null;
+            throw new ResultNotFoundException("Error retrieving result from the file " + storagePath.resolve(id + ".ser"), e);
         }
     }
 
@@ -51,7 +53,7 @@ public class FileFormatResultsRepository implements FormatResultsRepository {
                 }
             }).filter(Objects::nonNull).collect(Collectors.toList());
         } catch (IOException e) {
-            return List.of();
+            throw new RuntimeException("Error getting files from the storage", e);
         }
     }
 }

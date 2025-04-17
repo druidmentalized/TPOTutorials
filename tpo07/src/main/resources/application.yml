@@ -1,3 +1,6 @@
 spring:
   application:
     name: tpo07
+
+formatter:
+  storage-path: format-results
