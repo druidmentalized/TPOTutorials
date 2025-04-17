@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Java Code Formatter</title>
+  <link rel="stylesheet" href="/css/format.css">
+</head>
+<body class="dark-theme">
+
+<div class="main-wrapper">
+  <h1 class="title">Java Code Formatter</h1>
+
+  <form th:object="${formatRequest}"
+        th:action="@{/format}"
+        method="post"
+        class="form-wrapper">
+
+    <label>
+      Text ID:
+      <input type="text" th:field="*{id}"
+             placeholder="Enter a unique ID" required>
+    </label>
+
+    <label>
+      Retention (seconds):
+      <input type="number" th:field="*{duration}"
+             min="10" max="7776000" value="60" required>
+    </label>
+
+    <label>
+      Source Code:
+      <textarea th:field="*{sourceCode}"
+                rows="12"
+                placeholder="Paste your Java code here…" required></textarea>
+    </label>
+
+    <div class="form-buttons">
+      <button type="submit" class="base-button">Format Code</button>
+    </div>
+  </form>
+
+  <form th:action="@{/format-result/{id}(id=${idToLoad})}" method="get" class="form-wrapper load-form">
+    <label>
+      Load saved by ID:
+      <input type="text" name="idToLoad" placeholder="Enter ID to load…" required>
+    </label>
+    <div class="form-buttons">
+      <button type="submit" class="base-button">Load Saved</button>
+    </div>
+  </form>
+
+  <div th:if="${error}" class="error-message visible">
+    <p th:text="${error}"></p>
+  </div>
+
+  <div th:if="${formatRequest.formattedCode}" class="result-section">
+    <h2>Before &amp; After</h2>
+    <div class="code-container">
+      <div class="code-block">
+        <h3>Original</h3>
+        <pre th:text="${formatRequest.sourceCode}"></pre>
+      </div>
+      <div class="code-block">
+        <h3>Formatted</h3>
+        <pre th:text="${formatRequest.formattedCode}"></pre>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
