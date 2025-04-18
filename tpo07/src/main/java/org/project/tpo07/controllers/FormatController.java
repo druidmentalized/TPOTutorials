@@ -30,7 +30,7 @@ public class FormatController {
     public String postCodeFormat(
             @ModelAttribute FormatRequest formatRequest,
             Model model) {
-        String formattedCode = ""; //TODO: think about this variable
+        String formattedCode = null;
         try {
             formattedCode = formatService.formatCode(formatRequest.getSourceCode());
             formatRequest.setFormattedCode(formattedCode);
