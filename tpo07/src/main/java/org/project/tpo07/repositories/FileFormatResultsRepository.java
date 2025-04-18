@@ -56,4 +56,17 @@ public class FileFormatResultsRepository implements FormatResultsRepository {
             throw new RuntimeException("Error getting files from the storage", e);
         }
     }
+
+    @Override
+    public void deleteById(String id) {
+        try {
+            Path filePath = storagePath.resolve(id + ".ser");
+            if (Files.exists(filePath)) {
+                Files.delete(filePath);
+            }
+            else throw new ResultNotFoundException("File not found " + storagePath.resolve(id + ".ser"));
+        } catch (IOException e) {
+            throw new ResultPersistenceException("Error deleting the file from the system", e);
+        }
+    }
 }

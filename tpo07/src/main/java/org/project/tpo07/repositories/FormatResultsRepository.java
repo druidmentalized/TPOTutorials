@@ -8,4 +8,5 @@ public interface FormatResultsRepository {
     void save(FormatResult formatResult);
     FormatResult findById(String id);
     List<FormatResult> findAll();
+    void deleteById(String id);
 }

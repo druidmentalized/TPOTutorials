@@ -55,7 +55,7 @@ public class FormatController {
             FormatResult formatResult = formatService.getResultById(id);
             model.addAttribute("formatResult", formatResult);
         } catch (Exception e) {
-            //TODO: handle error (fallback or redirect)
+            return "format-not-found";
         }
         return "format-result";
     }

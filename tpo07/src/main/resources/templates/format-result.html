@@ -10,34 +10,30 @@
 <div class="main-wrapper">
     <h1 class="title" th:text="'Saved Code ID: ' + ${formatResult.id}">Saved Code</h1>
 
-    <!-- Format metadata section -->
-    <div class="meta-info">
-        <p><strong>Formatted On:</strong>
-            <span th:text="${#temporals.format(formatResult.formatDate, 'yyyy-MM-dd HH:mm:ss')}">2025-04-17 14:20:00</span>
-        </p>
-        <p><strong>Expires On:</strong>
-            <span th:text="${#temporals.format(formatResult.expiryDate, 'yyyy-MM-dd HH:mm:ss')}">2025-04-18 14:20:00</span>
-        </p>
-    </div>
-
     <div class="result-section">
         <h2>Original vs. Formatted</h2>
         <div class="code-container">
             <div class="code-block">
                 <h3>Original</h3>
-                <pre th:text="${formatResult.sourceCode}">Original code…</pre>
+                <pre th:text="${formatResult.sourceCode}">…</pre>
             </div>
             <div class="code-block">
                 <h3>Formatted</h3>
-                <pre th:text="${formatResult.formattedCode}">Formatted code…</pre>
+                <pre th:text="${formatResult.formattedCode}">…</pre>
             </div>
         </div>
-    </div>
 
-    <div class="form-buttons" style="margin-top:1.5rem;">
+        <div class="meta-info">
+            <p><strong>Formatted On:</strong>
+                <span th:text="${#temporals.format(formatResult.formatDate,'yyyy-MM-dd HH:mm:ss')}">2025‑04‑18 16:00:00</span>
+            </p>
+            <p><strong>Expires On:</strong>
+                <span th:text="${#temporals.format(formatResult.expiryDate,'yyyy-MM-dd HH:mm:ss')}">2025‑04‑18 17:00:00</span>
+            </p>
+        </div>
+
         <a th:href="@{/format-code}" class="base-button">Back to Formatter</a>
     </div>
 </div>
-
 </body>
 </html>

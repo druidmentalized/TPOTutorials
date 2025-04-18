@@ -58,4 +58,14 @@ public class FormatService {
 
         return formatResults;
     }
+
+    public void deleteResults(List<FormatResult> expiredResults) {
+        try {
+            for (FormatResult expiredResult : expiredResults) {
+                formatResultsRepository.deleteById(expiredResult.getId());
+            }
+        } catch (ResultPersistenceException e) {
+            System.err.println(e.getMessage());
+        }
+    }
 }
