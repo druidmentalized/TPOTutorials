@@ -4,3 +4,4 @@ spring:
 
 formatter:
   storage-path: format-results
+  standard-retention: 600

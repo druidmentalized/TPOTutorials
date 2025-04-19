@@ -15,14 +15,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class FormatController {
     private final FormatService formatService;
+    private final int standardRetention;
 
-    public FormatController(FormatService formatService) {
+    public FormatController(FormatService formatService, int standardRetention) {
         this.formatService = formatService;
+        this.standardRetention = standardRetention;
     }
 
     @GetMapping({"/", "/format-code"})
     public String getCodeFormat(Model model) {
-        model.addAttribute("formatRequest", new FormatRequest());
+        FormatRequest request = new FormatRequest();
+        request.setDuration(standardRetention);
+        model.addAttribute("formatRequest", request);
         return "format-code";
     }
 

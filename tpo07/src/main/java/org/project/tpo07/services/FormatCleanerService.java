@@ -17,15 +17,17 @@ public class FormatCleanerService {
     public void start() {
         new Thread(() -> {
             try {
-                List<FormatResult> formatResults = formatService.getAllResults();
+                while (true) {
+                    List<FormatResult> formatResults = formatService.getAllResults();
 
-                List<FormatResult> expiredResults = formatResults.stream()
-                        .filter(result -> result.getExpiryDate().isBefore(LocalDateTime.now()))
-                        .toList();
+                    List<FormatResult> expiredResults = formatResults.stream()
+                            .filter(result -> result.getExpiryDate().isBefore(LocalDateTime.now()))
+                            .toList();
 
-                formatService.deleteResults(expiredResults);
+                    formatService.deleteResults(expiredResults);
 
-                Thread.sleep(1000);
+                    Thread.sleep(1000);
+                }
             } catch (InterruptedException ignored) {}
         }, "FormatCleaner").start();
     }

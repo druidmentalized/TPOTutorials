@@ -10,7 +10,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -18,9 +17,10 @@ import java.util.stream.Stream;
 
 @Repository
 public class FileFormatResultsRepository implements FormatResultsRepository {
-    private final Path storagePath = Paths.get("format-results");
+    private final Path storagePath;
 
-    public FileFormatResultsRepository() throws IOException {
+    public FileFormatResultsRepository(Path storagePath) throws IOException {
+        this.storagePath = storagePath;
         Files.createDirectories(storagePath);
     }
 
