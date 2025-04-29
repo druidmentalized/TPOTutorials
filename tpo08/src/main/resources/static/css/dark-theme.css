@@ -1,0 +1,44 @@
+:root {
+    --bs-body-bg:      #121212;
+    --bs-body-color:   #e0e0e0;
+}
+
+.bg-secondary {
+    background-color: #1f1f1f !important;
+}
+.text-secondary {
+    color: #6c6c6c !important;
+}
+
+.border {
+    border-color: #333 !important;
+}
+
+.fs-3.text-secondary {
+    color: #555 !important;
+}
+
+.form-control,
+.form-control:focus,
+.btn,
+.btn:focus,
+.btn:active,
+.btn:focus-visible {
+    border-color: #333 !important;
+    box-shadow: none !important;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #555 !important;
+}
+
+.card {
+    background-color: #1a1a1a;
+    border-color: #2b2b2b;
+}
+
+.table {
+    color: #ccc;
+    background-color: #181818;
+}

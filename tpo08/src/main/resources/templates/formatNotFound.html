@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Code Not Found</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Not Found</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/dark-theme.css">
 </head>
-<body class="bg-dark text-light">
+<body class="text-light">
 
 <div class="container py-5">
-  <h1 class="text-center mb-4 fs-1">Code Not Found</h1>
-  <p class="alert alert-danger text-center mt-4">
-    The code with the specified ID could not be found or has expired.
-  </p>
+    <h1 class="text-center mb-4 fs-1">Code Not Found</h1>
 
-  <div class="container py-5">
-    <a th:href="@{/codeFormatter}" class="btn btn-light w-100">Back to Formatter</a>
-  </div>
+    <div class="alert alert-danger text-center mt-4" role="alert">
+        The code with the specified ID could not be found or has expired.
+    </div>
+
+    <div class="text-center mt-4">
+        <a th:href="@{/codeFormatter}" class="btn btn-outline-light w-50">
+            Back to Formatter
+        </a>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
