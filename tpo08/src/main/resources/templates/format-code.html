@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Java Code Formatter</title>
+  <link rel="stylesheet" href="/css/format.css">
+</head>
+<body class="dark-theme">
+
+<div class="main-wrapper">
+  <h1 class="title">Java Code Formatter</h1>
+
+  <div class="forms-wrapper">
+    <div class="form-card">
+      <form th:action="@{/format-result}" method="get" class="form-wrapper load-form">
+        <label for="loadId">Load saved by ID:</label>
+        <input type="text" id="loadId" name="id" placeholder="Enter ID to load…" required>
+        <button type="submit" class="base-button">Load Saved</button>
+      </form>
+    </div>
+
+    <div class="or-stamp">OR</div>
+
+    <div class="form-card">
+      <form th:object="${formatRequest}"
+            th:action="@{/format-code}"
+            method="post"
+            class="form-wrapper">
+        <label for="codeId">Text ID:</label>
+        <input type="text" id="codeId" th:field="*{id}"
+               placeholder="Enter a unique ID" required>
+
+        <label for="duration">Retention (seconds):</label>
+        <input type="number" id="duration" th:field="*{duration}"
+               min="10" max="7776000" required>
+
+        <label for="sourceCode">Source Code:</label>
+        <textarea id="sourceCode" th:field="*{sourceCode}"
+                  rows="12"
+                  placeholder="Paste your Java code here…"
+                  required></textarea>
+
+        <button type="submit" class="base-button">Format Code</button>
+      </form>
+    </div>
+  </div>
+
+  <div th:if="${formatRequest.formattedCode != null}" class="preview-section">
+    <h2>Before &amp; After</h2>
+    <div class="code-container">
+      <div class="code-block">
+        <h3>Original</h3>
+        <pre th:text="${formatRequest.sourceCode}">…</pre>
+      </div>
+      <div class="code-block">
+        <h3>Formatted</h3>
+        <pre th:text="${formatRequest.formattedCode}">…</pre>
+      </div>
+    </div>
+  </div>
+
+  <div th:if="${error}" class="error-message visible">
+    <p th:text="${error}"></p>
+  </div>
+
+</div>
+</body>
+</html>
