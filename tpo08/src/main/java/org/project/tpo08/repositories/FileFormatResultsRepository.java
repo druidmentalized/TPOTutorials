@@ -12,7 +12,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Repository
@@ -51,9 +50,9 @@ public class FileFormatResultsRepository implements FormatResultsRepository {
                 } catch (IOException | ClassNotFoundException e) {
                     return null;
                 }
-            }).filter(Objects::nonNull).collect(Collectors.toList());
+            }).filter(Objects::nonNull).toList();
         } catch (IOException e) {
-            throw new RuntimeException("Error getting files from the storage", e);
+            throw new ResultNotFoundException("Error getting files from the storage", e);
         }
     }
 

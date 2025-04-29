@@ -35,16 +35,17 @@ public class FormatController {
             @ModelAttribute FormatRequest formatRequest,
             Model model) {
         String formattedCode = null;
+        String errorAttribute = "error";
         try {
             formattedCode = formatService.formatCode(formatRequest.getSourceCode());
             formatRequest.setFormattedCode(formattedCode);
             formatService.saveResult(formatRequest);
         } catch (FormatterException e) {
-            model.addAttribute("error", "Invalid Java code: " + e.getMessage());
+            model.addAttribute(errorAttribute, "Invalid Java code: " + e.getMessage());
         } catch (ResultPersistenceException e) {
-            model.addAttribute("error", "Exception during saving: " + e.getMessage());
+            model.addAttribute(errorAttribute, "Exception during saving: " + e.getMessage());
         } catch (Exception e) {
-            model.addAttribute("error", "Error: " + e.getMessage());
+            model.addAttribute(errorAttribute, "Error: " + e.getMessage());
         }
 
         formatRequest.setFormattedCode(formattedCode);

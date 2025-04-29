@@ -53,19 +53,15 @@ public class FormatService {
         List<FormatResult> formatResults = formatResultsRepository.findAll();
 
         if (formatResults == null) {
-            throw new RuntimeException("No format results found");
+            throw new ResultNotFoundException("No format results found");
         }
 
         return formatResults;
     }
 
     public void deleteResults(List<FormatResult> expiredResults) {
-        try {
-            for (FormatResult expiredResult : expiredResults) {
-                formatResultsRepository.deleteById(expiredResult.getId());
-            }
-        } catch (ResultPersistenceException e) {
-            System.err.println(e.getMessage());
+        for (FormatResult expiredResult : expiredResults) {
+            formatResultsRepository.deleteById(expiredResult.getId());
         }
     }
 }
