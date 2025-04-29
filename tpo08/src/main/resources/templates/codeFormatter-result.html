@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'View Code – ' + ${formatResult.id}">View Formatted Code</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css">
+</head>
+
+<body class="bg-dark text-light">
+
+<div class="container py-5">
+    <h1 class="text-center mb-4 fs-1" th:text="'Saved Code ID: ' + ${formatResult.id}">Saved Code</h1>
+
+    <h2 class="text-center mb-4">Original vs. Formatted</h2>
+    <div class="row g-4 justify-content-center">
+        <div class="col-md-5">
+            <div class="p-3 bg-secondary rounded">
+                <h3 class="text-center">Original</h3>
+                <pre class="bg-dark text-light p-3 rounded overflow-auto" th:text="${formatResult.sourceCode}">…</pre>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="p-3 bg-secondary rounded">
+                <h3 class="text-center">Formatted</h3>
+                <pre class="bg-dark text-light p-3 rounded overflow-auto"
+                     th:text="${formatResult.formattedCode}">…</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="card bg-secondary text-light my-4">
+        <div class="card-body">
+            <p><strong>Formatted On:</strong> <span
+                    th:text="${#temporals.format(formatResult.formatDate,'yyyy-MM-dd HH:mm:ss')}">–</span></p>
+            <p><strong>Expires On:</strong> <span
+                    th:text="${#temporals.format(formatResult.expiryDate,'yyyy-MM-dd HH:mm:ss')}">–</span></p>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <a th:href="@{/codeFormatter}" class="btn btn-outline-light">Back to Formatter</a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

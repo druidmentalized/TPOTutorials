@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Java Code Formatter</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-dark text-light">
+
+<div class="container py-5">
+  <h1 class="text-center mb-5 fs-1">Java Code Formatter</h1>
+
+  <div class="row g-5 justify-content-center">
+    <div class="col-md-6">
+      <div class="card bg-secondary text-light p-4">
+        <form th:action="@{/codeFormatter-result}" method="get">
+          <div class="mb-3">
+            <label for="loadId" class="form-label">Load saved by ID:</label>
+            <input type="text" id="loadId" name="id" class="form-control" placeholder="Enter ID to load…" required>
+          </div>
+          <button type="submit" class="btn btn-outline-light w-100">Load Saved</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-12 text-center">
+      <span class="fs-3 text-secondary">OR</span>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card bg-secondary text-light p-4">
+        <form th:object="${formatRequest}" th:action="@{/codeFormatter}" method="post">
+          <div class="mb-3">
+            <label for="codeId" class="form-label">Text ID:</label>
+            <input type="text" id="codeId" th:field="*{id}" class="form-control" placeholder="Enter a unique ID" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="duration" class="form-label">Retention (seconds):</label>
+            <input type="number" id="duration" th:field="*{duration}" class="form-control" min="10" max="7776000" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="sourceCode" class="form-label">Source Code:</label>
+            <textarea id="sourceCode" th:field="*{sourceCode}" class="form-control" rows="10" placeholder="Paste your Java code here…" required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-outline-light w-100">Format Code</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div th:if="${formatRequest.formattedCode != null}" class="mt-5">
+    <h2 class="text-center mb-4">Before &amp; After</h2>
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-5">
+        <div class="p-3 bg-secondary rounded">
+          <h3 class="text-center">Original</h3>
+          <pre class="bg-dark text-light p-3 rounded overflow-auto" th:text="${formatRequest.sourceCode}">…</pre>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="p-3 bg-secondary rounded">
+          <h3 class="text-center">Formatted</h3>
+          <pre class="bg-dark text-light p-3 rounded overflow-auto" th:text="${formatRequest.formattedCode}">…</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div th:if="${error}" class="alert alert-danger text-center mt-4" role="alert">
+    <p th:text="${error}"></p>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
