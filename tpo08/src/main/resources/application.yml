@@ -2,6 +2,10 @@ spring:
   application:
     name: tpo08
 
+server:
+  servlet:
+    context-path: /code-formatter
+
 formatter:
   storage-path: format-results
   standard-retention: 600

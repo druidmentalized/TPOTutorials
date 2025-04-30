@@ -23,15 +23,15 @@ public class FormatController {
         this.standardRetention = standardRetention;
     }
 
-    @GetMapping({"/", "/codeFormatter"})
+    @GetMapping({"/","/format-code"})
     public String getCodeFormat(Model model) {
         FormatRequest request = new FormatRequest();
         request.setDuration(standardRetention);
         model.addAttribute("formatRequest", request);
-        return "codeFormatter";
+        return "format-code";
     }
 
-    @PostMapping("/codeFormatter")
+    @PostMapping("/format-code")
     public String postCodeFormat(
             @ModelAttribute FormatRequest formatRequest,
             Model model) {
@@ -50,10 +50,10 @@ public class FormatController {
         }
 
         formatRequest.setFormattedCode(formattedCode);
-        return "codeFormatter";
+        return "format-code";
     }
 
-    @GetMapping("/codeFormatter-result")
+    @GetMapping("/format-result")
     public String getFormattedCode(
             @RequestParam String id,
             Model model) {
@@ -61,8 +61,8 @@ public class FormatController {
             FormatResult formatResult = formatService.getResultById(id);
             model.addAttribute("formatResult", formatResult);
         } catch (Exception e) {
-            return "formatNotFound";
+            return "format-not-found";
         }
-        return "codeFormatter-result";
+        return "format-result";
     }
 }
