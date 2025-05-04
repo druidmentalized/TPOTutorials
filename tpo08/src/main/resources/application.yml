@@ -4,7 +4,7 @@ spring:
 
 server:
   servlet:
-    context-path: /code-formatter
+    context-path: /codeFormatter
 
 formatter:
   storage-path: format-results
