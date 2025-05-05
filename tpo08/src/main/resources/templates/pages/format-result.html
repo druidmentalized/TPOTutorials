@@ -1,17 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="'View Code – ' + ${formatResult.id}">View Formatted Code</title>
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.5/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/dark-theme.css}">
-</head>
-<body class="text-light">
-
-<div class="container py-5">
-    <h1 class="text-center mb-4 fs-1" th:text="'Saved Code ID: ' + ${formatResult.id}">
-        Saved Code
-    </h1>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}" lang="en">
+<body>
+<div layout:fragment="content">
+    <h1 class="text-center mb-4 fs-1" th:text="'Saved Code ID: ' + ${formatResult.id}">Saved Code</h1>
 
     <h2 class="text-center mb-4">Original vs. Formatted</h2>
     <div class="row g-4 justify-content-center">
@@ -35,11 +27,8 @@
     </div>
 
     <div class="text-center">
-        <a th:href="@{/format-code}" class="btn btn-outline-light">
-            Back to Formatter
-        </a>
+        <a th:href="@{/format-code}" class="btn btn-outline-light">Back to Formatter</a>
     </div>
 </div>
-
 </body>
 </html>

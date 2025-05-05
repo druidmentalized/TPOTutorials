@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}" lang="en">
+<body>
+<div layout:fragment="content">
+    <h1 class="text-center mb-4 fs-1">Code Not Found</h1>
+
+    <div class="alert alert-danger text-center mt-4" role="alert">
+        The code with the specified ID could not be found or has expired.
+    </div>
+
+    <div class="text-center mt-4">
+        <a th:href="@{/format-code}" class="btn btn-outline-light w-50">Back to Formatter</a>
+    </div>
+</div>
+</body>
+</html>

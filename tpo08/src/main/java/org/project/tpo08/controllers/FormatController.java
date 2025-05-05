@@ -28,7 +28,7 @@ public class FormatController {
         FormatRequest request = new FormatRequest();
         request.setDuration(standardRetention);
         model.addAttribute("formatRequest", request);
-        return "format-code";
+        return "pages/format-code";
     }
 
     @PostMapping("/format-code")
@@ -50,7 +50,7 @@ public class FormatController {
         }
 
         formatRequest.setFormattedCode(formattedCode);
-        return "format-code";
+        return "pages/format-code";
     }
 
     @GetMapping("/format-result")
@@ -61,8 +61,8 @@ public class FormatController {
             FormatResult formatResult = formatService.getResultById(id);
             model.addAttribute("formatResult", formatResult);
         } catch (Exception e) {
-            return "format-not-found";
+            return "pages/format-not-found";
         }
-        return "format-result";
+        return "pages/format-result";
     }
 }
