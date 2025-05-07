@@ -19,7 +19,8 @@ public class FormatterConfig {
         return Paths.get(properties.getStoragePath());
     }
 
-    @Bean int standardRetention() {
+    @Bean
+    int standardRetention() {
         return properties.getStandardRetention();
     }
 }
