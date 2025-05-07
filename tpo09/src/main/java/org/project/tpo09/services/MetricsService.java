@@ -13,8 +13,8 @@ public class MetricsService {
             throw new InvalidDataException("Weight and height must be positive");
         }
 
-        height /= 100;
-        double bmi = weight / (height * height);
+        double heightInMeters = height / 100;
+        double bmi = weight / (heightInMeters * heightInMeters);
 
         BodyCategoryEnum category;
         if (bmi < 18.5) {

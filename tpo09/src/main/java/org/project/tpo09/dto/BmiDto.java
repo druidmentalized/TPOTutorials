@@ -1,5 +1,8 @@
 package org.project.tpo09.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import org.project.tpo09.enums.BodyCategoryEnum;
 
 public class BmiDto {
@@ -22,6 +25,12 @@ public class BmiDto {
         this.height = height;
     }
 
+    @JsonProperty("bmi")
+    @JacksonXmlProperty(localName = "bmi")
+    public int getBmiInt() {
+        return (int) bmi;
+    }
+    @JsonIgnore
     public double getBmi() {
         return bmi;
     }
