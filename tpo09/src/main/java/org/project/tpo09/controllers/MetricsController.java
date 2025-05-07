@@ -22,7 +22,7 @@ public class MetricsController {
     }
 
     @GetMapping(value = "/BMI", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<BmiDto> calculateBMIJson(@RequestParam double weight,
+    public ResponseEntity<BmiDto> calculateBMI(@RequestParam double weight,
                                                    @RequestParam double height) {
         try {
             return ResponseEntity.ok(metricsService.calculateBmi(weight, height));
@@ -41,13 +41,27 @@ public class MetricsController {
         }
     }
 
-    @GetMapping("/BMR/{gender}")
+    @GetMapping(value = "/BMR/{gender}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<BmrDto> calculateBMR(@PathVariable String gender,
                                                @RequestParam double weight,
                                                @RequestParam double height,
                                                @RequestParam int age) {
         try {
             return ResponseEntity.ok(metricsService.calculateBmr(gender, weight, height, age));
+        } catch (InvalidDataException e) {
+            return ResponseEntity.status(499).header(ERROR_HEADER, e.getMessage()).build();
+        } catch (InvalidGenderException e) {
+            return ResponseEntity.badRequest().header(ERROR_HEADER, e.getMessage()).build();
+        }
+    }
+
+    @GetMapping(value = "/BMR/{gender}", produces = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<String> calculateBMRText(@PathVariable String gender,
+                                               @RequestParam double weight,
+                                               @RequestParam double height,
+                                               @RequestParam int age) {
+        try {
+            return ResponseEntity.ok(String.valueOf(metricsService.calculateBmr(gender, weight, height, age).getBmr()));
         } catch (InvalidDataException e) {
             return ResponseEntity.status(499).header(ERROR_HEADER, e.getMessage()).build();
         } catch (InvalidGenderException e) {
