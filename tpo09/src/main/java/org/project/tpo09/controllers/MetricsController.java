@@ -21,11 +21,21 @@ public class MetricsController {
         this.metricsService = metricsService;
     }
 
-    @GetMapping("/BMI")
+    @GetMapping(value = "/BMI", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BmiDto> calculateBMI(@RequestParam double weight,
                                                @RequestParam double height) {
         try {
             return ResponseEntity.ok(metricsService.calculateBmi(weight, height));
+        } catch (InvalidDataException e) {
+            return ResponseEntity.badRequest().header(ERROR_HEADER, e.getMessage()).build();
+        }
+    }
+
+    @GetMapping(value = "/BMI", produces = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<String> calculateBMIText(@RequestParam double weight,
+                                               @RequestParam double height) {
+        try {
+            return ResponseEntity.ok(String.valueOf(metricsService.calculateBmi(weight, height).getBmi()));
         } catch (InvalidDataException e) {
             return ResponseEntity.badRequest().header(ERROR_HEADER, e.getMessage()).build();
         }
