@@ -5,6 +5,7 @@ import org.project.config.LinkProperties;
 import org.project.dto.RequestCreateLinkDTO;
 import org.project.dto.ResponseLinkDTO;
 import org.project.entities.Link;
+import org.project.repositories.LinkRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.Random;
@@ -15,9 +16,11 @@ public class LinkMapper {
     private final Random random = new Random();
 
     private final LinkProperties linkProperties;
+    private final LinkRepository linkRepository;
 
-    public LinkMapper(LinkProperties linkProperties) {
+    public LinkMapper(LinkProperties linkProperties, LinkRepository linkRepository) {
         this.linkProperties = linkProperties;
+        this.linkRepository = linkRepository;
     }
 
     public ResponseLinkDTO toResponseDto(Link link) {
@@ -32,12 +35,22 @@ public class LinkMapper {
 
     public Link toEntity(RequestCreateLinkDTO dto) {
         return new Link(
-                generateRandomId(),
+                generateUniqueId(),
                 dto.getName(),
                 dto.getTargetUrl(),
                 dto.getPassword(),
                 0L
         );
+    }
+
+    private String generateUniqueId() {
+        String id;
+
+        do {
+            id = generateRandomId();
+        } while (linkRepository.existsById(id));
+
+        return id;
     }
 
     private String generateRandomId() {
