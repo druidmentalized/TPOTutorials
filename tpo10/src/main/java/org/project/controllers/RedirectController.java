@@ -22,7 +22,7 @@ public class RedirectController {
     }
 
     @GetMapping(value = "{id}")
-    public ResponseEntity<?> redirect(@PathVariable String id) {
+    public ResponseEntity<Void> redirect(@PathVariable String id) {
         try {
             ResponseLinkDTO responseLinkDTO = linkService.getById(id, true);
 
@@ -33,8 +33,8 @@ public class RedirectController {
         catch (NoSuchLinkException _) {
             return ResponseEntity.notFound().build();
         }
-        catch (Exception _) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).header("reason", e.getMessage()).build();
         }
     }
 }

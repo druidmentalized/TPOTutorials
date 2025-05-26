@@ -2,7 +2,9 @@ package org.project.controllers;
 
 import org.project.config.LinkProperties;
 import org.project.dto.RequestCreateLinkDTO;
+import org.project.dto.RequestUpdateLinkDTO;
 import org.project.dto.ResponseLinkDTO;
+import org.project.exceptions.InvalidPasswordException;
 import org.project.exceptions.NoSuchLinkException;
 import org.project.services.LinkService;
 import org.springframework.http.HttpStatus;
@@ -14,6 +16,8 @@ import java.net.URI;
 @RestController
 @RequestMapping(value = "/api/links")
 public class LinkController {
+    private static final String REASON_HEADER = "reason";
+
     private final LinkService linkService;
     private final LinkProperties linkProperties;
 
@@ -35,9 +39,8 @@ public class LinkController {
 
             return ResponseEntity.created(location).body(createdDto);
         }
-        //TODO: make exception handling
-        catch (Exception _) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).header(REASON_HEADER, e.getMessage()).build();
         }
     }
 
@@ -47,12 +50,44 @@ public class LinkController {
             ResponseLinkDTO dto = linkService.getById(id);
             return ResponseEntity.ok(dto);
         }
-        //TODO: make proper exception handling
         catch (NoSuchLinkException _) {
             return ResponseEntity.notFound().build();
         }
-        catch (Exception _) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).header(REASON_HEADER, e.getMessage()).build();
+        }
+    }
+
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity<Void> updateById(@PathVariable String id,
+            @RequestBody RequestUpdateLinkDTO dto) {
+        try {
+            linkService.updateById(id, dto);
+            return ResponseEntity.noContent().build();
+        }
+        catch (NoSuchLinkException _) {
+            return ResponseEntity.notFound().build();
+        }
+        catch (InvalidPasswordException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).header(REASON_HEADER, e.getMessage()).build();
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).header(REASON_HEADER, e.getMessage()).build();
+        }
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable String id,
+                                           @RequestHeader(name = "pass", required = false) String pass) {
+        try {
+            linkService.deleteById(id, pass);
+            return ResponseEntity.noContent().build();
+        }
+        catch (InvalidPasswordException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).header(REASON_HEADER, e.getMessage()).build();
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).header(REASON_HEADER, e.getMessage()).build();
         }
     }
 }
