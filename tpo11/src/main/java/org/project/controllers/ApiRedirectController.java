@@ -14,17 +14,17 @@ import java.net.URI;
 
 @RestController
 @RequestMapping(value = "/red/")
-public class RedirectController {
+public class ApiRedirectController {
     private final LinkService linkService;
 
-    public RedirectController(LinkService linkService) {
+    public ApiRedirectController(LinkService linkService) {
         this.linkService = linkService;
     }
 
     @GetMapping(value = "{id}")
     public ResponseEntity<Void> redirect(@PathVariable String id) {
         try {
-            ResponseLinkDTO responseLinkDTO = linkService.getById(id, true);
+            ResponseLinkDTO responseLinkDTO = linkService.getByIdAsResponseDto(id, true);
 
             return ResponseEntity.status(HttpStatus.FOUND)
                     .location(URI.create(responseLinkDTO.getTargetUrl()))

@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Link</title>
+</head>
+<body>
+<h1 th:text="'Editing Link with ID: ' + ${link.id}">Edit Link</h1>
+<div th:replace="fragments/link-form :: linkForm('edit')"></div>
+</body>
+</html>

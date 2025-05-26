@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<body>
+<div th:fragment="linkForm(mode)">
+    <form th:action="${mode == 'edit' ? @{/links/edit} : @{/links/create}}"
+          th:object="${link}" method="post">
+        <label>
+            Name:
+            <input type="text" th:field="*{name}" required/>
+        </label>
+
+        <label>
+            Target URL:
+            <input type="text" th:field="*{targetUrl}" required/>
+        </label>
+
+        <label>
+            Password:
+            <input type="text" th:field="*{password}"/>
+        </label>
+
+        <input type="hidden" th:if="${mode == 'edit'}" th:field="*{id}"/>
+
+        <button type="submit" th:text="${mode == 'edit' ? 'Apply Changes' : 'Create Link'}">Submit</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Link - ' + ${link.id}">Link Information</title>
+</head>
+<body>
+<h1 th:text="'Saved Link ID: ' + ${link.id}">Link Information</h1>
+
+<div>
+    <p><strong>Link ID:</strong> <span th:text="${link.id}">id-placeholder</span></p>
+    <p><strong>Name:</strong> <span th:text="${link.name}">name-placeholder</span></p>
+    <p><strong>Target URL:</strong> <span th:text="${link.targetUrl}">target-placeholder</span></p>
+    <p><strong>Redirect URL:</strong> <a th:href="${link.redirectUrl}" th:text="${link.redirectUrl}">redirect-placeholder</a></p>
+    <p><strong>Visits:</strong> <span th:text="${link.visits}">0</span></p>
+</div>
+
+<div>
+    <form th:action="@{/links/confirm}" method="get">
+        <input type="hidden" name="id" th:value="${link.id}">
+        <button type="submit" name="action" value="edit">Edit</button>
+        <button type="submit" name="action" value="delete">Delete</button>
+    </form>
+</div>
+</body>
+</html>

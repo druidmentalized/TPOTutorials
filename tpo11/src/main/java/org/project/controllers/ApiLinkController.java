@@ -15,13 +15,13 @@ import java.net.URI;
 
 @RestController
 @RequestMapping(value = "/api/links")
-public class LinkController {
+public class ApiLinkController {
     private static final String REASON_HEADER = "reason";
 
     private final LinkService linkService;
     private final LinkProperties linkProperties;
 
-    public LinkController(LinkService linkService, LinkProperties linkProperties) {
+    public ApiLinkController(LinkService linkService, LinkProperties linkProperties) {
         this.linkService = linkService;
         this.linkProperties = linkProperties;
     }
@@ -47,7 +47,7 @@ public class LinkController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<ResponseLinkDTO> getById(@PathVariable String id) {
         try {
-            ResponseLinkDTO dto = linkService.getById(id);
+            ResponseLinkDTO dto = linkService.getByIdAsResponseDto(id);
             return ResponseEntity.ok(dto);
         }
         catch (NoSuchLinkException _) {

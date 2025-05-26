@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm Action</title>
+</head>
+<body>
+
+<form th:action="@{/links/execute}" th:object="${linkAction}" method="post">
+  <input type="hidden" name="id" th:value="*{id}">
+  <input type="hidden" name="action" th:value="*{action}">
+
+  <label>
+    Enter Password:
+    <input type="password" th:value="*{password}" required>
+  </label>
+  <button type="submit">Confirm</button>
+</form>
+
+</body>
+</html>

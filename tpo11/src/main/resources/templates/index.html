@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Link Shortener</title>
+</head>
+<body>
+<h1>Link Shortener</h1>
+
+<div>
+    <form th:action="@{/link-info}" method="get">
+        <label for="loadId">Load saved link by ID:</label>
+        <input type="text" id="loadId" placeholder="Enter ID to load...(e.g. lhmkuEXSUZ)" required>
+        <button type="submit">Load Saved</button>
+    </form>
+</div>
+
+<div>OR</div>
+
+<div>
+    <form th:action="@{/link-create}" method="get">
+        <button type="submit">Create New Link</button>
+    </form>
+</div>
+</body>
+</html>
