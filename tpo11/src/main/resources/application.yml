@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: jdbc:h2:file:./tpo10/H2Database/db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false
+    driver-class-name: org.h2.Driver
+    username:
+    password:
+  jackson:
+    default-property-inclusion: non_null
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:database/schema.sql
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    properties:
+      hibernate.physical_naming_strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+link:
+  id-length: 10
+  redirect-path: red/
+  links-path: links/
+  host: http://localhost:8080/
