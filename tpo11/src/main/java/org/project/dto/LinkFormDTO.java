@@ -5,7 +5,18 @@ public class LinkFormDTO {
     public String name;
     public String targetUrl;
     public String redirectUrl;
-    public String visits;
+    public String password;
+    public long visits;
+
+    public LinkFormDTO() {}
+
+    public LinkFormDTO(String id, String name, String targetUrl, String redirectUrl, long visits) {
+        this.id = id;
+        this.name = name;
+        this.targetUrl = targetUrl;
+        this.redirectUrl = redirectUrl;
+        this.visits = visits;
+    }
 
     public String getId() {
         return id;
@@ -35,10 +46,17 @@ public class LinkFormDTO {
         this.redirectUrl = redirectUrl;
     }
 
-    public String getVisits() {
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public long getVisits() {
         return visits;
     }
-    public void setVisits(String visits) {
+    public void setVisits(long visits) {
         this.visits = visits;
     }
 }

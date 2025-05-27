@@ -32,8 +32,9 @@ public class LinkService {
     }
 
     public LinkFormDTO createNew(LinkFormDTO dto) {
-        return null;
-        //TODO: implement
+        Link newLink = linkMapper.toEntity(dto);
+        linkRepository.save(newLink);
+        return linkMapper.toFormDto(newLink);
     }
 
 
@@ -52,8 +53,11 @@ public class LinkService {
     }
 
     public LinkFormDTO getByIdAsFormDto(String id) {
-        return null;
-        //TODO: implement
+        Optional<Link> linkOptional = linkRepository.findById(id);
+
+        if (linkOptional.isPresent()) {
+            return linkMapper.toFormDto(linkOptional.get());
+        } else throw new NoSuchLinkException("No link with given id exists.");
     }
 
     public void updateById(String id, RequestUpdateLinkDTO dto) {
@@ -63,19 +67,28 @@ public class LinkService {
 
         Link link = linkOptional.get();
 
-        String stored = link.getPassword();
-        String given = dto.getPassword();
-        if (stored == null || given == null || !stored.equals(given)) {
+        String storedPass = link.getPassword();
+        String givenPass = dto.getPassword();
+        if (storedPass != null && givenPass != null && storedPass.equals(givenPass))
             throw new InvalidPasswordException("wrong password");
-        }
 
         link.setName(dto.getName());
+        link.setTargetUrl(dto.getTargetUrl());
 
         linkRepository.save(link);
     }
 
     public void update(LinkFormDTO dto) {
-        //TODO: implement
+        Optional<Link> linkOptional = linkRepository.findById(dto.getId());
+        if (linkOptional.isEmpty())
+            throw new NoSuchLinkException("No link with given id exists.");
+
+        Link link = linkOptional.get();
+
+        link.setName(dto.getName());
+        link.setTargetUrl(dto.getTargetUrl());
+
+        linkRepository.save(link);
     }
 
     public void deleteById(String id, String pass) {
@@ -92,8 +105,13 @@ public class LinkService {
         linkRepository.delete(link);
     }
 
-    public boolean verifyPassword(String password1, String password2) {
-        return password1.equals(password2);
-        //TODO: remake to use hash instead
+    public boolean verifyPassword(String linkId, String assumedPassword) {
+        Optional<Link> linkOptional = linkRepository.findById(linkId);
+        if (linkOptional.isEmpty()) return false;
+        Link link = linkOptional.get();
+        String stored = link.getPassword();
+
+
+        return stored.equals(assumedPassword);
     }
 }

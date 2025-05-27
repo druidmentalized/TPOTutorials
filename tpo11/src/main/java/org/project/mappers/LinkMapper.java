@@ -2,6 +2,7 @@ package org.project.mappers;
 
 
 import org.project.config.LinkProperties;
+import org.project.dto.LinkFormDTO;
 import org.project.dto.RequestCreateLinkDTO;
 import org.project.dto.ResponseLinkDTO;
 import org.project.entities.Link;
@@ -28,12 +29,32 @@ public class LinkMapper {
                 link.getId(),
                 link.getName(),
                 link.getTargetUrl(),
-                linkProperties.getHost() + linkProperties.getRedirectPath() + link.getId(),
+                constructRedirectUrl(link.getId()),
+                link.getVisits()
+        );
+    }
+
+    public LinkFormDTO toFormDto(Link link) {
+        return new LinkFormDTO(
+                link.getId(),
+                link.getName(),
+                link.getTargetUrl(),
+                constructRedirectUrl(link.getId()),
                 link.getVisits()
         );
     }
 
     public Link toEntity(RequestCreateLinkDTO dto) {
+        return new Link(
+                generateUniqueId(),
+                dto.getName(),
+                dto.getTargetUrl(),
+                dto.getPassword(),
+                0L
+        );
+    }
+
+    public Link toEntity(LinkFormDTO dto) {
         return new Link(
                 generateUniqueId(),
                 dto.getName(),
@@ -60,5 +81,9 @@ public class LinkMapper {
         }
 
         return idBuilder.toString();
+    }
+
+    private String constructRedirectUrl(String linkId) {
+        return linkProperties.getHost() + linkProperties.getRedirectPath() + linkId;
     }
 }

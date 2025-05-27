@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <body>
 <div th:fragment="linkForm(mode)">
-    <form th:action="${mode == 'edit' ? @{/links/edit} : @{/links/create}}"
+    <form th:action="@{${mode == 'edit' ? '/links/edit' : '/links/create'}}"
           th:object="${link}" method="post">
         <label>
             Name:

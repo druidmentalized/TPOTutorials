@@ -8,9 +8,9 @@
 <h1>Link Shortener</h1>
 
 <div>
-    <form th:action="@{/link-info}" method="get">
+    <form th:action="@{/links/info}" method="get">
         <label for="loadId">Load saved link by ID:</label>
-        <input type="text" id="loadId" placeholder="Enter ID to load...(e.g. lhmkuEXSUZ)" required>
+        <input type="text" id="loadId" name="id" placeholder="Enter ID to load...(e.g. lhmkuEXSUZ)" required>
         <button type="submit">Load Saved</button>
     </form>
 </div>
@@ -18,7 +18,7 @@
 <div>OR</div>
 
 <div>
-    <form th:action="@{/link-create}" method="get">
+    <form th:action="@{/links/create}" method="get">
         <button type="submit">Create New Link</button>
     </form>
 </div>

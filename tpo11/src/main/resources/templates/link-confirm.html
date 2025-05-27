@@ -7,12 +7,12 @@
 <body>
 
 <form th:action="@{/links/execute}" th:object="${linkAction}" method="post">
-  <input type="hidden" name="id" th:value="*{id}">
-  <input type="hidden" name="action" th:value="*{action}">
+  <input type="hidden" name="id" th:field="*{id}">
+  <input type="hidden" name="action" th:field="*{action}">
 
   <label>
     Enter Password:
-    <input type="password" th:value="*{password}" required>
+    <input type="password" th:field="*{password}" required>
   </label>
   <button type="submit">Confirm</button>
 </form>

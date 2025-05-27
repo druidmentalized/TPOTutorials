@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang = "en">
 <head>
     <meta charset="UTF-8">
     <title>Create New Link</title>
 </head>
 <body>
 <h1>Create a New Link</h1>
-<div th:replace="fragments/link-form :: linkForm('create')"></div>
+<div th:replace="~{fragments/link-form :: linkForm('create')}"></div>
 </body>
 </html>

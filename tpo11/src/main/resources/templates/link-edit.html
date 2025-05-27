@@ -6,6 +6,6 @@
 </head>
 <body>
 <h1 th:text="'Editing Link with ID: ' + ${link.id}">Edit Link</h1>
-<div th:replace="fragments/link-form :: linkForm('edit')"></div>
+<div th:replace="~{fragments/link-form :: linkForm('edit')}"></div>
 </body>
 </html>
