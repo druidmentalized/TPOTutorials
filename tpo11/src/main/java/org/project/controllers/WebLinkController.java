@@ -13,9 +13,16 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class WebLinkController {
+    private static final String LINK_CREATE = "link-create";
+    private static final String LINK_EDIT = "link-edit";
+    private static final String LINK_INFO = "link-info";
+    private static final String LINK_CONFIRM = "link-confirm";
+
     private static final String REDIRECT = "redirect:/";
     private static final String LINKS = "links/";
-    private static final String LINK_CONFIRM = "link-confirm";
+
+    private static final String ERROR_ATTRIBUTE = "error";
+
 
     private final LinkService linkService;
 
@@ -23,30 +30,33 @@ public class WebLinkController {
         this.linkService = linkService;
     }
 
+    // * Create a link
     @GetMapping("links/create")
     public String createLinkForm(Model model) {
         model.addAttribute("link", new LinkFormDTO());
 
-        return "link-create";
+        return LINK_CREATE;
     }
 
     @PostMapping("links/create")
     public String createLink(@ModelAttribute(name = "link") LinkFormDTO linkFormDTO, Model model) {
         LinkFormDTO dto = linkService.createNew(linkFormDTO);
         model.addAttribute("link", dto);
-        return "link-info";
+        return LINK_INFO;
     }
 
+    // * View link details
     @GetMapping("links/info")
     public String linkInfoForm(@RequestParam String id, Model model) {
         model.addAttribute("link", linkService.getByIdAsFormDto(id));
-        return "link-info";
+        return LINK_INFO;
     }
 
-    @GetMapping("links/edit/{id}")
-    public String editLinkForm(@PathVariable String id, Model model) {
+    // * Edit a link
+    @GetMapping("links/edit")
+    public String editLinkForm(@RequestParam String id, Model model) {
         model.addAttribute("link", linkService.getByIdAsFormDto(id));
-        return "link-edit";
+        return LINK_EDIT;
     }
 
     @PostMapping("links/edit")
@@ -55,6 +65,7 @@ public class WebLinkController {
         return REDIRECT + LINKS + "info?id=" + dto.getId();
     }
 
+    // * Confirm sensitive action
     @GetMapping("links/confirm")
     public String confirmLinkForm(@RequestParam String id,
                                   @RequestParam String action,
@@ -68,9 +79,9 @@ public class WebLinkController {
         String action = linkActionDTO.getAction();
         if ("edit".equals(action)) {
             if (linkService.verifyPassword(linkActionDTO.getId(), linkActionDTO.getPassword())) {
-                return "redirect:/links/edit/" + linkActionDTO.getId();
+                return REDIRECT + LINKS + "edit?id=" + linkActionDTO.getId();
             } else {
-                model.addAttribute("error", "Invalid password for editing.");
+                model.addAttribute(ERROR_ATTRIBUTE, "Invalid password for editing.");
                 return LINK_CONFIRM;
             }
         } else if ("delete".equals(action)) {
@@ -78,7 +89,7 @@ public class WebLinkController {
                 linkService.deleteById(linkActionDTO.getId(), linkActionDTO.getPassword());
                 return REDIRECT;
             } catch (InvalidPasswordException e) {
-                model.addAttribute("error", e.getMessage());
+                model.addAttribute(ERROR_ATTRIBUTE, e.getMessage());
                 return LINK_CONFIRM;
             }
         }
