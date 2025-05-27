@@ -119,4 +119,8 @@ public class LinkService {
 
         return stored.equals(assumedPassword);
     }
+
+    public boolean existsByTargetUrl(String url) {
+        return linkRepository.existsByTargetUrl(url);
+    }
 }
