@@ -11,6 +11,9 @@
     <form th:action="@{/links/info}" method="get">
         <label for="loadId">Load saved link by ID:</label>
         <input type="text" id="loadId" name="id" placeholder="Enter ID to load...(e.g. lhmkuEXSUZ)" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
         <button type="submit">Load Saved</button>
     </form>
 </div>

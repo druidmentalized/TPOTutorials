@@ -87,11 +87,16 @@ public class LinkService {
 
         link.setName(dto.getName());
         link.setTargetUrl(dto.getTargetUrl());
+        link.setPassword(dto.getPassword());
 
         linkRepository.save(link);
     }
 
-    public void deleteById(String id, String pass) {
+    public void deleteByIdNoPass(String id) {
+        linkRepository.deleteById(id);
+    }
+
+    public void deleteByIdWithPass(String id, String pass) {
         Optional<Link> linkOptional = linkRepository.findById(id);
         if (linkOptional.isEmpty()) return;
 

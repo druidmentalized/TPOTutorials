@@ -80,7 +80,7 @@ public class ApiLinkController {
     public ResponseEntity<Void> deleteById(@PathVariable String id,
                                            @RequestHeader(name = "pass", required = false) String pass) {
         try {
-            linkService.deleteById(id, pass);
+            linkService.deleteByIdWithPass(id, pass);
             return ResponseEntity.noContent().build();
         }
         catch (InvalidPasswordException e) {

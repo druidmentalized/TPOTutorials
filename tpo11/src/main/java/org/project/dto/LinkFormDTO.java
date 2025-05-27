@@ -10,11 +10,12 @@ public class LinkFormDTO {
 
     public LinkFormDTO() {}
 
-    public LinkFormDTO(String id, String name, String targetUrl, String redirectUrl, long visits) {
+    public LinkFormDTO(String id, String name, String targetUrl, String redirectUrl, String password, long visits) {
         this.id = id;
         this.name = name;
         this.targetUrl = targetUrl;
         this.redirectUrl = redirectUrl;
+        this.password = password;
         this.visits = visits;
     }
 

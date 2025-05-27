@@ -13,13 +13,18 @@
     <p><strong>Target URL:</strong> <span th:text="${link.targetUrl}">target-placeholder</span></p>
     <p><strong>Redirect URL:</strong> <a th:href="${link.redirectUrl}" th:text="${link.redirectUrl}">redirect-placeholder</a></p>
     <p><strong>Visits:</strong> <span th:text="${link.visits}">0</span></p>
+    <p><strong>Password:</strong> <span th:text="${link.password}">password-placeholder</span></p>
 </div>
 
 <div>
-    <form th:action="@{/links/confirm}" method="get">
+    <form th:action="@{/links/edit}" method="get">
         <input type="hidden" name="id" th:value="${link.id}">
-        <button type="submit" name="action" value="edit">Edit</button>
-        <button type="submit" name="action" value="delete">Delete</button>
+        <button type="submit">Edit</button>
+    </form>
+
+    <form th:action="@{/links/delete}" method="post">
+        <input type="hidden" name="id" th:value="${link.id}">
+        <button type="submit">Delete</button>
     </form>
 </div>
 </body>

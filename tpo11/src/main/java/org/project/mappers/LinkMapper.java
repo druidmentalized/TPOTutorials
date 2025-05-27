@@ -40,6 +40,7 @@ public class LinkMapper {
                 link.getName(),
                 link.getTargetUrl(),
                 constructRedirectUrl(link.getId()),
+                link.getPassword(),
                 link.getVisits()
         );
     }
