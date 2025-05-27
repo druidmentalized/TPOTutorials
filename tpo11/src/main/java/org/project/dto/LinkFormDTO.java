@@ -3,6 +3,7 @@ package org.project.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.URL;
+import org.project.annotations.UniqueURL;
 import org.project.annotations.ValidPassword;
 
 public class LinkFormDTO {
@@ -13,7 +14,7 @@ public class LinkFormDTO {
 
     @NotBlank(message = "{validation.url.notBlank}")
     @URL(protocol = "https", message = "{validation.url.httpsOnly}")
-
+    @UniqueURL
     public String targetUrl;
 
     public String redirectUrl;

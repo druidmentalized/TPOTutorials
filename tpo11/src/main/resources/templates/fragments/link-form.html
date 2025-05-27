@@ -8,16 +8,19 @@
             Name:
             <input type="text" th:field="*{name}" required/>
         </label>
+        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></div>
 
         <label>
             Target URL:
             <input type="text" th:field="*{targetUrl}" required/>
         </label>
+        <div th:if="${#fields.hasErrors('targetUrl')}" th:errors="*{targetUrl}" class="text-danger"></div>
 
         <label>
             Password:
             <input type="text" th:field="*{password}"/>
         </label>
+        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></div>
 
         <input type="hidden" th:if="${mode == 'edit'}" th:field="*{id}">
         <button type="submit" th:text="${mode == 'edit' ? 'Apply Changes' : 'Create Link'}">Submit</button>

@@ -64,6 +64,7 @@ public class WebLinkController {
                                @RequestParam String password,
                                Model model) {
         if (linkService.verifyPassword(id, password)) {
+
             model.addAttribute("link", linkService.getByIdAsFormDto(id));
             return LINK_INFO;
         }

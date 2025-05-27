@@ -16,7 +16,7 @@ public class UniqueURLValidator implements ConstraintValidator<UniqueURL, String
 
     @Override
     public boolean isValid(String url, ConstraintValidatorContext constraintValidatorContext) {
-        if (url == null || url.isEmpty()) return false;
-        return linkService.existsByTargetUrl(url);
+        if (url == null || url.isEmpty()) return true;
+        return !linkService.existsByTargetUrl(url);
     }
 }
