@@ -2,6 +2,7 @@ package org.project.controllers;
 
 import jakarta.validation.Valid;
 import org.project.dto.LinkFormDTO;
+import org.project.exceptions.NoSuchLinkException;
 import org.project.services.LinkService;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.stereotype.Controller;
@@ -63,13 +64,16 @@ public class WebLinkController {
     public String linkInfoForm(@RequestParam String id,
                                @RequestParam String password,
                                Model model) {
-        if (linkService.verifyPassword(id, password)) {
-
-            model.addAttribute("link", linkService.getByIdAsFormDto(id));
+        try {
+            if (!linkService.verifyPassword(id, password)) {
+                model.addAttribute(ERROR_ATTRIBUTE, "Invalid password.");
+                return REDIRECT;
+            }
+            LinkFormDTO dto = linkService.getByIdAsFormDto(id);
+            model.addAttribute("link", dto);
             return LINK_INFO;
-        }
-        else {
-            model.addAttribute(ERROR_ATTRIBUTE, "Invalid password.");
+        } catch (NoSuchLinkException e) {
+            model.addAttribute(ERROR_ATTRIBUTE, e.getMessage());
             return REDIRECT;
         }
     }
@@ -77,8 +81,14 @@ public class WebLinkController {
     // * Edit a link
     @GetMapping("/edit")
     public String editLinkForm(@RequestParam String id, Model model) {
-        model.addAttribute("link", linkService.getByIdAsFormDto(id));
-        return LINK_EDIT;
+        try {
+            LinkFormDTO dto = linkService.getByIdAsFormDto(id);
+            model.addAttribute("link", dto);
+            return LINK_EDIT;
+        } catch (NoSuchLinkException e) {
+            model.addAttribute(ERROR_ATTRIBUTE, e.getMessage());
+            return REDIRECT;
+        }
     }
 
     @PostMapping("/edit")
@@ -93,8 +103,13 @@ public class WebLinkController {
             model.addAttribute(ERROR_ATTRIBUTE, errors);
             return LINK_EDIT;
         }
-        linkService.update(dto);
-        return REDIRECT + LINKS + "info?id=" + dto.getId() + "&password=" + dto.getPassword();
+        try {
+            linkService.update(dto);
+            return REDIRECT + LINKS + "info?id=" + dto.getId() + "&password=" + dto.getPassword();
+        } catch (NoSuchLinkException e) {
+            model.addAttribute(ERROR_ATTRIBUTE, e.getMessage());
+            return LINK_EDIT;
+        }
     }
 
     // * Delete a link
