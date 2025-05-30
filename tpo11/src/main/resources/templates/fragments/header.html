@@ -1,0 +1,35 @@
+<div th:fragment="siteHeader">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand" th:href="@{/}">Link Manager</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+              aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/links/create}">Create Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/links/info}">Load Link</a>
+          </li>
+        </ul>
+        <form class="d-flex">
+          <select class="form-select" onchange="window.location.href=this.value;">
+            <option th:value="@{${#request.requestURI}(lang='en')}"
+                    th:text="#{lang.en}"
+                    th:selected="${#locale.language == 'en'}">English</option>
+            <option th:value="@{${#request.requestURI}(lang='pl')}"
+                    th:text="#{lang.pl}"
+                    th:selected="${#locale.language == 'pl'}">Polski</option>
+            <option th:value="@{${#request.requestURI}(lang='de')}"
+                    th:text="#{lang.de}"
+                    th:selected="${#locale.language == 'de'}">Deutsch</option>
+          </select>
+        </form>
+      </div>
+    </div>
+  </nav>
+</div>

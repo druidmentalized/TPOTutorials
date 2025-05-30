@@ -1,32 +1,40 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.5/css/bootstrap.min.css}">
     <title>Link Shortener</title>
 </head>
 <body>
-<h1>Link Shortener</h1>
-
-<div>
-    <form th:action="@{/links/info}" method="get">
-        <label for="loadId">Load saved link by ID:</label>
-        <input type="text" id="loadId" name="id" placeholder="Enter ID to load...(e.g. lhmkuEXSUZ)" required>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <div th:if="${error}" class="text-danger">
-            <p th:text="${error}"></p>
+<section layout:fragment="content">
+    <h1 class="mb-4 text-center">Link Shortener</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form th:action="@{/links/info}" method="get" class="row g-3">
+                <div class="col-12">
+                    <label for="loadId" class="form-label">Load saved link by ID:</label>
+                    <input type="text" id="loadId" name="id" placeholder="e.g. lhmkuEXSUZ" required
+                           class="form-control">
+                </div>
+                <div class="col-12">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" id="password" name="password" required class="form-control">
+                </div>
+                <div class="col-12 text-center">
+                    <div th:if="${error}" class="text-danger mb-3">
+                        <p th:text="${error}"></p>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Load Saved</button>
+                </div>
+            </form>
+            <div class="text-center my-4">OR</div>
+            <form th:action="@{/links/create}" method="get">
+                <button type="submit" class="btn btn-success w-100">Create New Link</button>
+            </form>
         </div>
-        <button type="submit">Load Saved</button>
-    </form>
-</div>
-
-<div>OR</div>
-
-<div>
-    <form th:action="@{/links/create}" method="get">
-        <button type="submit">Create New Link</button>
-    </form>
-</div>
+    </div>
+</section>
 </body>
 </html>

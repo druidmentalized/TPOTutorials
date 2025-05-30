@@ -95,10 +95,18 @@ public class WebLinkController {
     public String editLink(@Valid @ModelAttribute(name = "link") LinkFormDTO dto,
                            BindingResult bindingResult,
                            Model model) {
+        LinkFormDTO original = linkService.getByIdAsFormDto(dto.getId());
+        if (!dto.getTargetUrl().equals(original.getTargetUrl()) &&
+                linkService.existsByTargetUrl(dto.getTargetUrl())) {
+            bindingResult.rejectValue("targetUrl", "url.exists", "{validation.url.notUnique}");
+        }
         if (bindingResult.hasErrors()) {
             List<String> errors = bindingResult.getAllErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
                     .toList();
+
+            bindingResult.getAllErrors().stream().forEach(System.out::println);
+
 
             model.addAttribute(ERROR_ATTRIBUTE, errors);
             return LINK_EDIT;

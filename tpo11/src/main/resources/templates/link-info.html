@@ -1,31 +1,42 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en"
+      layout:decorate="~{base}">
 <head>
-    <meta charset="UTF-8">
     <title th:text="'Link - ' + ${link.id}">Link Information</title>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.5/css/bootstrap.min.css}">
 </head>
 <body>
-<h1>Saved Link Information</h1>
-
-<div>
-    <p><strong>Link ID:</strong> <span th:text="${link.id}">id-placeholder</span></p>
-    <p><strong>Name:</strong> <span th:text="${link.name}">name-placeholder</span></p>
-    <p><strong>Target URL:</strong> <span th:text="${link.targetUrl}">target-placeholder</span></p>
-    <p><strong>Redirect URL:</strong> <a th:href="${link.redirectUrl}" th:text="${link.redirectUrl}">redirect-placeholder</a></p>
-    <p><strong>Visits:</strong> <span th:text="${link.visits}">0</span></p>
-    <p><strong>Password:</strong> <span th:text="${link.password}">password-placeholder</span></p>
-</div>
-
-<div>
-    <form th:action="@{/links/edit}" method="get">
-        <input type="hidden" name="id" th:value="${link.id}">
-        <button type="submit">Edit</button>
-    </form>
-
-    <form th:action="@{/links/delete}" method="post">
-        <input type="hidden" name="id" th:value="${link.id}">
-        <button type="submit">Delete</button>
-    </form>
-</div>
+<section layout:fragment="content">
+    <div class="container mt-4">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <h2 th:text="'Link Details: ' + ${link.id}">Link Details</h2>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Link ID:</strong> <span th:text="${link.id}"></span></li>
+                    <li class="list-group-item"><strong>Name:</strong> <span th:text="${link.name}"></span></li>
+                    <li class="list-group-item"><strong>Target URL:</strong> <span th:text="${link.targetUrl}"></span>
+                    </li>
+                    <li class="list-group-item"><strong>Redirect URL:</strong> <a th:href="${link.redirectUrl}"
+                                                                                  th:text="${link.redirectUrl}"></a>
+                    </li>
+                    <li class="list-group-item"><strong>Visits:</strong> <span th:text="${link.visits}"></span></li>
+                    <li class="list-group-item"><strong>Password:</strong> <span th:text="${link.password}"></span></li>
+                </ul>
+            </div>
+            <div class="card-footer text-end">
+                <a th:href="@{/links/edit(id=${link.id})}" class="btn btn-primary me-2">Edit</a>
+                <form th:action="@{/links/delete}" method="post" class="d-inline">
+                    <input type="hidden" name="id" th:value="${link.id}"/>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
 </body>
 </html>

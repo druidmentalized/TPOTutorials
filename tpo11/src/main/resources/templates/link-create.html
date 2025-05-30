@@ -1,11 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang = "en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en"
+      layout:decorate="~{base}">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Create New Link</title>
+    <title>Create Link</title>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.5/css/bootstrap.min.css}">
 </head>
 <body>
-<h1>Create a New Link</h1>
-<div th:replace="~{fragments/link-form :: linkForm('create')}"></div>
+<section layout:fragment="content">
+    <h1 class="mb-4 text-center">Create a New Link</h1>
+    <div th:replace="~{fragments/link-form :: linkForm('create')}"></div>
+</section>
 </body>
 </html>
