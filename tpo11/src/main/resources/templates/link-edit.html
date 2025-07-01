@@ -9,6 +9,7 @@
 </head>
 <body>
 <section layout:fragment="content">
+    <div th:replace="~{fragments/header :: siteHeader}"></div>
     <h1 class="mb-4 text-center" th:text="'Editing Link with ID: ' + ${link.id}"></h1>
     <div th:replace="~{fragments/link-form :: linkForm('edit')}"></div>
 </section>

@@ -17,17 +17,19 @@
           </li>
         </ul>
         <form class="d-flex">
-          <select class="form-select" onchange="window.location.href=this.value;">
-            <option th:value="@{${#request.requestURI}(lang='en')}"
-                    th:text="#{lang.en}"
-                    th:selected="${#locale.language == 'en'}">English</option>
-            <option th:value="@{${#request.requestURI}(lang='pl')}"
-                    th:text="#{lang.pl}"
-                    th:selected="${#locale.language == 'pl'}">Polski</option>
-            <option th:value="@{${#request.requestURI}(lang='de')}"
-                    th:text="#{lang.de}"
-                    th:selected="${#locale.language == 'de'}">Deutsch</option>
+          <select class="form-select" onchange="changeLanguage(this)">
+            <option value="en" th:text="#{lang.en}" th:selected="${#locale.language == 'en'}">English</option>
+            <option value="pl" th:text="#{lang.pl}" th:selected="${#locale.language == 'pl'}">Polski</option>
+            <option value="de" th:text="#{lang.de}" th:selected="${#locale.language == 'de'}">Deutsch</option>
           </select>
+          <script>
+            function changeLanguage(selectElement) {
+              const lang = selectElement.value;
+              const url = new URL(window.location.href);
+              url.searchParams.set('lang', lang);
+              window.location.href = url.toString();
+            }
+          </script>
         </form>
       </div>
     </div>

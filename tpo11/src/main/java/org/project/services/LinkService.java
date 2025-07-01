@@ -123,4 +123,8 @@ public class LinkService {
     public boolean existsByTargetUrl(String url) {
         return linkRepository.existsByTargetUrl(url);
     }
+
+    public boolean existsByTargetUrlAndIdNot(String targetUrl, String id) {
+        return linkRepository.existsByTargetUrlAndIdNot(targetUrl, id);
+    }
 }
